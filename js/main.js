@@ -4,7 +4,7 @@
 let filename = location.pathname.split('/').pop();
 
 
-if(filename == "login.php" || filename == "register.php") {
+if(filename == "loginController.php" || filename == "registerController.php") {
     // Création d'une balise style qui sera utiliser dynamiquement
 
         let styleElem = document.head.appendChild(document.createElement("style"));
@@ -46,7 +46,7 @@ if(filename == "login.php" || filename == "register.php") {
                             }
                         }
                         }
-                    xmlhttp.open("GET", "controllers/indexController.php?pseudonyme=" + firstInput.value, true)
+                    xmlhttp.open("GET", "../controllers/indexController.php?pseudonyme=" + firstInput.value, true)
                     xmlhttp.send();
                 };
 
@@ -70,7 +70,7 @@ if(filename == "login.php" || filename == "register.php") {
                                 }
                             }
                             }
-                        xmlhttp.open("GET", "controllers/indexController.php?email=" + mailInput.value, true)
+                        xmlhttp.open("GET", "../controllers/indexController.php?email=" + mailInput.value, true)
                         xmlhttp.send();
                     };
 
@@ -147,7 +147,7 @@ if(filename == "login.php" || filename == "register.php") {
                 }, 5000);
             }
             })
-} else if(filename == "accueil.php") {
+} else if(filename == "showController.php") {
 
     //Initialiation de la couleur des coeurs
     // leurs valeurs est défini dans le sessionStorage

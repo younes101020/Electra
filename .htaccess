@@ -1,0 +1,5 @@
+RewriteEngine ON
+
+DirectoryIndex ^/*$ /views/index.html
+RewriteRule /inscription /controllers/registerController.php [L]
+RewriteRule /connexion /controllers/loginController.php [L]

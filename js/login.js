@@ -9,6 +9,7 @@ let errorAccname;
 const checkexistName = () => {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
+        console.log(this.responseText);
         if (this.readyState == 4 && this.status == 200) {
                  if(this.responseText == "false") {
                     errorAccname = 1;
@@ -21,7 +22,7 @@ const checkexistName = () => {
                  }
             }
             }
-        xmlhttp.open("GET", "controllers/indexController.php?pseudonyme=" + firstInput.value, true)
+        xmlhttp.open("GET", "../controllers/indexController.php?pseudonyme=" + firstInput.value, true)
         xmlhttp.send();
     };
 

@@ -5,6 +5,6 @@
 
     spl_autoload_register('app_autoload');
 
-    function app_autoload($class) {
-        require "class/$class.php";
+    function app_autoload($model) {
+        require "../models/$model.php";
     }

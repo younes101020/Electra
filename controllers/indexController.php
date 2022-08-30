@@ -5,17 +5,21 @@
 
     // Je n'ai pas trouver de moyen de faire fonctionner l'auto loader ici
     // L'inclusion se fait donc manuellement sur ce fichier
-    require_once '../class/Database.php';
-    require_once '../class/App.php';
-    $db = App::getDatabase();
+    require_once '../inc/bootstrap.php';
+
+
+    $auth = App::getAuth();
+    $show = App::getShow();
+    
 
     if(isset($_GET['pseudonyme'])) {
-        $userName = $db->query('SELECT id FROM elec_users WHERE username = ?', [$_GET['pseudonyme']])->fetch();
-        echo json_encode($userName);
+        $auth->username = $_GET['pseudonyme'];
+        echo $auth->getUserByUsername();
     } else if(isset($_GET['email'])) {
-        $userMail = $db->query('SELECT id FROM elec_users WHERE email = ?', [$_GET['email']])->fetch();
-        echo json_encode($userMail);
-    } else if(isset($_GET['search'])) {
+        $auth->email = $_GET['email'];
+        echo $auth->getUserByMail();
+    } /*else if(isset($_GET['search'])) {
+        $show->showname = $_GET['search'];
         $searchResult = $db->query('SELECT name, buy, image, synopsis FROM elec_shows WHERE TRIM(name) = ?', [$_GET['search']])->fetch();
         echo json_encode($searchResult);
-    }
+    }*/
