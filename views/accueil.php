@@ -1,14 +1,6 @@
 <body class="forced_no_overflow">
     <!-- Header de la page d'accueil -->
-    <header>
-        <ul id="navbar">
-            <li class="nav_list"><a class="nav_link" href="#">MA SHOWLIST</a></li>
-            <li class="nav_list"><a class="nav_link" href="#">TIMELINE</a></li>
-            <li id="logo"><a id="nav_logo" href="#"><h1>ELECTRA</h1></a></li>
-            <li class="nav_list"><a class="nav_link" href="account.php">MON COMPTE</a></li>
-            <li class="nav_list"><a class="nav_link" href="logoutController.php">DECONNEXION</a></li>
-        </ul>
-    </header>
+    <?php require_once '../inc/header_account.php'; ?>
 
     <main id="vertical_display">
         <div id="input_container">

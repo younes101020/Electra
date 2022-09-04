@@ -13,13 +13,35 @@
     
 
     if(isset($_GET['pseudonyme'])) {
+
         $auth->username = $_GET['pseudonyme'];
         echo $auth->getUserByUsername();
+
     } else if(isset($_GET['email'])) {
+
         $auth->email = $_GET['email'];
         echo $auth->getUserByMail();
-    } /*else if(isset($_GET['search'])) {
+
+    } else if(isset($_GET['search'])) {
+
         $show->showname = $_GET['search'];
-        $searchResult = $db->query('SELECT name, buy, image, synopsis FROM elec_shows WHERE TRIM(name) = ?', [$_GET['search']])->fetch();
-        echo json_encode($searchResult);
-    }*/
+        echo $show->getShowByName();
+
+    } else if(isset($_GET['addingshow'])) {
+
+        $show->getList();
+        $show->showname = $_GET['addingshow'];
+        echo $show->getShowByName();
+                if($show->listid > 0) {
+
+                    $show->addingshow = $_GET['addingshow'];
+                    $show->getidShow();
+                } else {
+                    
+                    $show->addingshow = $_GET['addingshow'];
+                    $show->addList();
+                    $show->listid = $showtransaction->lastInsertId();
+                    $show->getidShow();
+                }
+        
+    }

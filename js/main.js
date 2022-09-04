@@ -169,6 +169,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             if (this.readyState == 4 && this.status == 200) {
                     // Je parse les données recu pour les transformer de chaines de charactères
                     // en objets ce qui me permettra d'itérer decu
+                    console.log(this.responseText);
                     let showResult = JSON.parse(this.responseText);
                     console.log(showResult.name.trim());
                     showContainer.innerHTML = `<div id="top_show" class="like_scope result_search" style="background-image: url(${showResult.image.trim()}); background-size: cover; background-position: center;">
@@ -184,7 +185,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
                     allowAsync()
                 }
         }
-            xmlhttp.open("GET", "controllers/indexController.php?search=" + searchValue.value, true)
+            xmlhttp.open("GET", "../controllers/indexController.php?search=" + searchValue.value, true)
             xmlhttp.send();
         };
 
@@ -269,11 +270,27 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         let toggleLike = [false, false, false, false, false, false, false, false, false, false, false];
         let like_scope = document.querySelectorAll('.like_scope');
 
+        // Cette fonction me sert à envoyer le nom du film à ajouter à la watchlist
+         const sendtoPhp = (savingshowTitle) => {
+                    let xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                            console.log(this.responseText)
+                    }
+                    }
+                    xmlhttp.open("GET", "../controllers/indexController.php?addingshow=" + savingshowTitle, true)
+                    xmlhttp.send();
+                };
+
+        // firstInput.onkeyup = () => {
+        //     checkexistName();
+        // }
+
         for(let i = 0; i < resumeBtn.length; i++) {
             like_scope[i].addEventListener("click", (e) => {
                     e.stopPropagation();
                     if(toggleLike[i] == false && i == 0) {
-                        sessionStorage.setItem(like_scope[i].childNodes[1].childNodes[1].textContent, like_scope[i].outerHTML);
+                        sendtoPhp(like_scope[i].childNodes[1].childNodes[1].textContent);
                         sessionStorage.setItem("--dynamic-color", "red")
                         document.documentElement.style.setProperty("--dynamic-color", sessionStorage.getItem("--dynamic-color"));
                         toggleLike[i] = true;
@@ -283,8 +300,8 @@ if(filename == "loginController.php" || filename == "registerController.php") {
                         document.documentElement.style.setProperty("--dynamic-color", sessionStorage.getItem("--dynamic-color"));
                         toggleLike[i] = false;
                     } else if(toggleLike[i] == false) {
-                        sessionStorage.setItem(like_scope[i].childNodes[1].childNodes[1].textContent, like_scope[i].outerHTML);
-                        sessionStorage.setItem(`--${i}${i}`, "red")
+                        sendtoPhp(like_scope[i].childNodes[1].childNodes[1].textContent);
+                        sessionStorage.setItem(`--${i}${i}`, "red");
                         document.documentElement.style.setProperty(`--${i}${i}`, sessionStorage.getItem(`--${i}${i}`));
                         toggleLike[i] = true;
                     } else {
@@ -331,12 +348,26 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     allowAsync();
 
     
-} else {
-    gsap.set(".litem", {x:900})
+} else if(filename == "showlistController.php") {
+    let main = document.getElementById('showcontainer');
+    for(let i = 0; i < sessionStorage.length; i++) {
+        main.innerHTML += sessionStorage.getItem(sessionStorage.key(i));
+    }
 
-    gsap.to(".spidermanbox", {x: -900, duration: 1});
-    gsap.to(".womenbox", {x: -900, duration: 1, delay: 1});
-    gsap.to(".communitybox", {x: -900, duration: 1, delay: 2});
+} else {
+    console.log(filename)
+    gsap.set(".litem", {x:900});
+    gsap.set(".logo", {autoAlpha: 0});
+
+    let tl = gsap.timeline({duration:1});
+    
+    
+
+    tl.to(".spidermanbox", {x: -900});
+    tl.to(".womenbox", {x: -900});
+    tl.to(".communitybox", {x: -900});
+    
+    tl.to(".logo", {autoAlpha: 1});
 }
 
 

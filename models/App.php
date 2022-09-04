@@ -25,7 +25,7 @@ class App{
      }
 
      static function getShow(){
-         return new Show();
+         return new Show(Session::getInstance());
      }
 
      static function redirect($page){
