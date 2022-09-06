@@ -2,14 +2,36 @@
 
     require '../inc/bootstrap.php';
     App::getAuth()->restrict();
-    $show = App::getShow();
 
     // Récupération de la showlist de l'utilisateur
-    if($show->getList() !== 0) {
-        $show->getMovieList();
-    } else {
-        echo "Pas de liste trouvé, sert toi dans l'accueil.";
+    function callShowlist() {
+        $show = App::getShow();
+        if($show->getList() !== 0) {
+            $showlist = $show->getMovieList();
+            return $showlist;
+        } else {
+            $show->addList();
+            $show->getList();
+            $showlist = $show->getMovieList();
+            return $showlist;
+        }
     }
+    // Récupération du nom de la showlist de l'utilisateur
+    function calllistName() {
+        $show = App::getShow();
+        if($show->getList() !== 0) {
+            $show->getListName();
+            $listname = $show->listname;
+            return $listname;
+        } else {
+            $show->addList();
+            $show->getListName();
+            return $show->listname;
+        }
+        
+        
+    }
+    
 
     $title = "Ma showlist - Electra";
     include '../inc/header.php';

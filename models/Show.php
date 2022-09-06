@@ -48,12 +48,22 @@ class Show extends Database{
         $queryExecute->execute();
         $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
 
-        if($queryResult->id > 0) {
+        if(is_numeric($queryResult->id) || $queryResult->id > 0) {
             $this->listid = $queryResult->id;
         } else {
             return 0;
         }
         
+    }
+    // Cette fonction permet de récupérer le nom de la liste de l'utilisateur
+    public function getListName() {
+        $sqlQuery = 'SELECT name FROM ' . DB_PREFIX .'movielists WHERE id_users = :id_users';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
+
+        $this->listname = $queryResult->name;
     }
     // Cette fonction permet d'initialiser une liste pour ca showlist
     public function addList() {
@@ -92,11 +102,11 @@ class Show extends Database{
     }
     // Cette fonction permet de récupérer les films ajouter à la liste de l'utilisateur
     public function getMovieList() {
-        $sqlQuery = 'SELECT m.name, m.validated, mov.name, mov.image, mov.synopsis, mov.buy
-                    FROM ' . DB_PREFIX . 'movielists AS m
+        $sqlQuery = 'SELECT s.name, s.validated, mov.name, mov.image, mov.synopsis, mov.buy
+                    FROM ' . DB_PREFIX . 'movielists AS s
                     INNER JOIN ' . DB_PREFIX . 'movieslistscontent AS mlc ON mlc.id_movielists = :listid
                     INNER JOIN ' . DB_PREFIX . 'movies AS mov ON mlc.id_movies = mov.id
-                    WHERE m.id = :listid';
+                    WHERE s.id = :listid';
 
         $queryExecute = $this->db->prepare($sqlQuery);
         $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_STR);

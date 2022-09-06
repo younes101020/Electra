@@ -10,6 +10,8 @@
 
     $auth = App::getAuth();
     $show = App::getShow();
+
+    $showtransaction = new Transaction;
     
 
     if(isset($_GET['pseudonyme'])) {
@@ -30,14 +32,10 @@
     } else if(isset($_GET['addingshow'])) {
 
         $show->getList();
-        $show->showname = $_GET['addingshow'];
-        echo $show->getShowByName();
                 if($show->listid > 0) {
-
                     $show->addingshow = $_GET['addingshow'];
                     $show->getidShow();
-                } else {
-                    
+                } else {                
                     $show->addingshow = $_GET['addingshow'];
                     $show->addList();
                     $show->listid = $showtransaction->lastInsertId();
