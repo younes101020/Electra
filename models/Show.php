@@ -6,11 +6,14 @@ class Show extends Database{
     public string $showname = '';
     public string $listname = 'Ma liste';
     public string $addingshow = '';
+    public string $deletingshow = '';
+    public string $checkedshow = '';
     public int $blocked = 0;
     public int $validated = 0;
     public string $commentaire	= '';
     public int $showid = 0;
     public int $listid = 0;
+    public int $listcontentid = 0;
     public int $note = 0;
     protected $db;
 
@@ -82,6 +85,31 @@ class Show extends Database{
 
         return $queryExecute->execute();
     }
+    // Cette fonction permet de récupérer l'id de la contentlist qui correspond à un film spécifique
+    public function getlistcontentId() {
+        $sqlQuery = 'SELECT mlc.id
+                    FROM ' . DB_PREFIX . 'movielists
+                    INNER JOIN ' . DB_PREFIX . 'movieslistscontent AS mlc ON mlc.id_movielists = :listid
+                    INNER JOIN ' . DB_PREFIX . 'movies AS mov ON mlc.id_movies = mov.id
+                    WHERE mov.name = :deletingshow';
+            
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':deletingshow', $this->deletingshow, PDO::PARAM_STR);
+        $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_INT);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
+
+        $this->listcontentid = $queryResult->id;
+
+    }
+    // Cette fonction permet de supprimer la row stocker dans la base de donnée qui fais référence à un film spécifique
+    public function removeshowList() {
+        $sqlQuerys = 'DELETE FROM ' . DB_PREFIX . 'movieslistscontent WHERE id = :listcontentid';
+        $queryExecutes = $this->db->prepare($sqlQuerys);
+        $queryExecutes->bindValue(':listcontentid', $this->listcontentid, PDO::PARAM_INT);
+
+        $queryExecutes->execute();
+    }
     // Cette fonction permet d'ajouter un film à la base de donnée
     public function getidShow() {
         $sqlQuery = 'SELECT id FROM ' . DB_PREFIX .'movies WHERE TRIM(name) = :name';
@@ -102,16 +130,32 @@ class Show extends Database{
     }
     // Cette fonction permet de récupérer les films ajouter à la liste de l'utilisateur
     public function getMovieList() {
-        $sqlQuery = 'SELECT s.name, s.validated, mov.name, mov.image, mov.synopsis, mov.buy
+        $sqlQuery = 'SELECT mov.name, mov.image, mov.synopsis, mov.buy
                     FROM ' . DB_PREFIX . 'movielists AS s
                     INNER JOIN ' . DB_PREFIX . 'movieslistscontent AS mlc ON mlc.id_movielists = :listid
                     INNER JOIN ' . DB_PREFIX . 'movies AS mov ON mlc.id_movies = mov.id
                     WHERE s.id = :listid';
 
         $queryExecute = $this->db->prepare($sqlQuery);
-        $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_STR);
+        $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_INT);
         $queryExecute->execute();
         $usershowlist = $queryExecute->fetchAll(PDO::FETCH_OBJ);
         return $usershowlist;
+    }
+    // Cette fonction permet de vérifier si un film est déjà dans la movielist de l'utilisateur
+    public function checkmovieinList() {
+        $sqlQuery = 'SELECT mov.name
+                    FROM rp4z3_movielists AS s
+                    INNER JOIN rp4z3_movieslistscontent AS mlc ON mlc.id_movielists = :listid
+                    INNER JOIN rp4z3_movies AS mov ON mlc.id_movies = mov.id
+                    WHERE mov.name = :checkedshow';
+        
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_INT);
+        $queryExecute->bindValue(':checkedshow', $this->checkedshow, PDO::PARAM_STR);
+        $queryExecute->execute();
+        $usershowlist = $queryExecute->fetch(PDO::FETCH_OBJ);
+        return $usershowlist;
+        
     }
 }

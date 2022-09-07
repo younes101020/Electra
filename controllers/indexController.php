@@ -42,4 +42,14 @@
                     $show->getidShow();
                 }
         
+    } else if(isset($_GET['deletingshow'])) {
+        $show->deletingshow = $_GET['deletingshow'];
+        $show->getList();
+        $show->getlistcontentId();
+        $show->removeshowList();
+    } else if(isset($_GET['checkedshow'])) {
+        $show->checkedshow = $_GET['checkedshow'];
+        $show->getList();
+        $showlist = $show->checkmovieinList();
+        echo $showlist->name;
     }
