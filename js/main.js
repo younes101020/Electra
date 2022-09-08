@@ -149,16 +149,52 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             })
 } else if(filename == "showController.php") {
 
-    //Initialiation de la couleur des coeurs
-    // leurs valeurs est défini dans le sessionStorage
-    // permet de garantir à l'utilisateur la persistance visuel des données
-    for(let i  = 0; i < 12; i++) {
-        if(i == 0) {
-            document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
-        } else {
-            document.documentElement.style.setProperty(`--${i}${i}`, localStorage.getItem(`--${i}${i}`));
+    // Cette fonction vérifie l'état visuel des like sur les movielist
+    const checkshowinListsync = (checkedshow, indiceiszero, indice) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            if(indiceiszero) {
+                if(this.responseText == "Le film est déjà dans la movielist !") {
+                    localStorage.setItem("--dynamic-color", "red");
+                    document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
+                } else {
+                    localStorage.setItem("--dynamic-color", "black");
+                    document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
+                }
+            } else {
+                if(this.responseText == "Le film est déjà dans la movielist !") {
+                    localStorage.setItem(`--${indice}${indice}`, "red");
+                    document.documentElement.style.setProperty(`--${indice}${indice}`, localStorage.getItem(`--${indice}${indice}`));
+                } else {
+                    localStorage.setItem(`--${indice}${indice}`, "black")
+                    document.documentElement.style.setProperty(`--${indice}${indice}`, localStorage.getItem(`--${indice}${indice}`));
+                }
+            }
+                
+            }
         }
-    }
+
+        xmlhttp.open("GET", "../controllers/indexController.php?checkedshow=" + checkedshow, true)
+        xmlhttp.send();
+    };
+    
+    let like_scope = document.querySelectorAll('.like_scope');
+    let indiceiszeroSync;
+
+    //Initialiation de la couleur des coeurs
+    window.addEventListener('load', () => {
+            for(let i  = 0; i < 12; i++) {
+            if(i == 0) {
+                indiceiszeroSync = true;
+                checkshowinListsync(like_scope[i].childNodes[1].childNodes[1].textContent,indiceiszeroSync,i);
+            } else {
+                indiceiszeroSync = false;
+                checkshowinListsync(like_scope[i].childNodes[1].childNodes[1].textContent,indiceiszeroSync,i);
+            }
+        }
+    });
+    
 
     const searchValue = document.getElementById('search_bar');
     const showContainer = document.getElementById('show');
@@ -267,9 +303,6 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             });
         }
 
-        let toggleLike = [false, false, false, false, false, false, false, false, false, false, false];
-        let like_scope = document.querySelectorAll('.like_scope');
-
         // Cette fonction me sert à envoyer le nom du film à ajouter à la watchlist
          const saveShow = (savingshowTitle) => {
                     let xmlhttp = new XMLHttpRequest();
@@ -293,12 +326,32 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             xmlhttp.send();
         };
         // Cette fonction vérifie l'état visuel des like sur les movielist
-        const checkshowinList = (checkedshow) => {
+        const checkshowinList = (checkedshow, saveshow, deleteshow, indiceiszero, indice) => {
             let xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                    let val = this.responseText;
-                    console.log(val);
+                if(indiceiszero) {
+                    if(this.responseText == "Le film est déjà dans la movielist !") {
+                        deleteshow(checkedshow);
+                        localStorage.setItem("--dynamic-color", "black")
+                        document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
+                    } else {
+                        saveshow(checkedshow);
+                        localStorage.setItem("--dynamic-color", "red")
+                        document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
+                    }
+                } else {
+                    if(this.responseText == "Le film est déjà dans la movielist !") {
+                        deleteshow(checkedshow);
+                        localStorage.setItem(`--${indice}${indice}`, "black")
+                        document.documentElement.style.setProperty(`--${indice}${indice}`, localStorage.getItem(`--${indice}${indice}`));
+                    } else {
+                        saveshow(checkedshow);
+                        localStorage.setItem(`--${indice}${indice}`, "red");
+                        document.documentElement.style.setProperty(`--${indice}${indice}`, localStorage.getItem(`--${indice}${indice}`));
+                    }
+                }
+                    
             }
             }
             xmlhttp.open("GET", "../controllers/indexController.php?checkedshow=" + checkedshow, true)
@@ -308,30 +361,17 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         //     checkexistName();
         // }
 
+        let indiceisZero;
+
         for(let i = 0; i < resumeBtn.length; i++) {
             like_scope[i].addEventListener("click", (e) => {
                     e.stopPropagation();
-                    if(toggleLike[i] == false && i == 0) {
-                        toggleLike[i] = true;
-                        checkshowinList(like_scope[i].childNodes[1].childNodes[1].textContent);
-                        saveShow(like_scope[i].childNodes[1].childNodes[1].textContent);
-                        localStorage.setItem("--dynamic-color", "red")
-                        document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
-                    } else if(i == 0) {
-                        toggleLike[i] = false;
-                        deleteShow(like_scope[i].childNodes[1].childNodes[1].textContent);
-                        localStorage.setItem("--dynamic-color", "black")
-                        document.documentElement.style.setProperty("--dynamic-color", localStorage.getItem("--dynamic-color"));
-                    } else if(toggleLike[i] == false) {
-                        toggleLike[i] = true;
-                        saveShow(like_scope[i].childNodes[1].childNodes[1].textContent);
-                        localStorage.setItem(`--${i}${i}`, "red");
-                        document.documentElement.style.setProperty(`--${i}${i}`, localStorage.getItem(`--${i}${i}`));
+                    if(i == 0) {
+                        indiceisZero = true;
+                        checkshowinList(like_scope[i].childNodes[1].childNodes[1].textContent,saveShow,deleteShow,indiceisZero,i);
                     } else {
-                        toggleLike[i] = false;
-                        deleteShow(like_scope[i].childNodes[1].childNodes[1].textContent);
-                        localStorage.setItem(`--${i}${i}`, "black")
-                        document.documentElement.style.setProperty(`--${i}${i}`, localStorage.getItem(`--${i}${i}`));
+                        indiceisZero = false;
+                        checkshowinList(like_scope[i].childNodes[1].childNodes[1].textContent,saveShow,deleteShow,indiceisZero,i);
                     }
             })
             

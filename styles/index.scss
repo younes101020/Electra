@@ -1140,7 +1140,7 @@ input[type=text], input[type=email] {
         position: relative;
         color: #ffff;
         min-width: 15rem;
-        height: 15rem;
+        height: 20rem;
         background-size: cover;
         background-position: top;
         .card-banner {
@@ -1148,7 +1148,7 @@ input[type=text], input[type=email] {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            bottom: 25%;
+            bottom: 18%;
             z-index: 1;
             text-align: center;
             width: 100%;

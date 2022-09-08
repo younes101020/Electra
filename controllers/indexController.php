@@ -48,8 +48,10 @@
         $show->getlistcontentId();
         $show->removeshowList();
     } else if(isset($_GET['checkedshow'])) {
+
         $show->checkedshow = $_GET['checkedshow'];
         $show->getList();
         $showlist = $show->checkmovieinList();
-        echo $showlist->name;
+        echo $showlist;
+
     }

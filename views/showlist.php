@@ -16,7 +16,6 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <?php var_dump(callShowlist()); ?>
 
         </main>
         <footer>

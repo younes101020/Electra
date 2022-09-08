@@ -155,7 +155,12 @@ class Show extends Database{
         $queryExecute->bindValue(':checkedshow', $this->checkedshow, PDO::PARAM_STR);
         $queryExecute->execute();
         $usershowlist = $queryExecute->fetch(PDO::FETCH_OBJ);
-        return $usershowlist;
+
+        if($usershowlist !== false) {
+            return "Le film est déjà dans la movielist !";
+        } else {
+            return "Le film n'est pas dans la movielist !";
+        }
         
     }
 }
