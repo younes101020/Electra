@@ -3,11 +3,13 @@
 // pour chaque page html
 let filename = location.pathname.split('/').pop();
 
+let styleElem = document.head.appendChild(document.createElement("style"));
+
 
 if(filename == "loginController.php" || filename == "registerController.php") {
     // Création d'une balise style qui sera utiliser dynamiquement
 
-        let styleElem = document.head.appendChild(document.createElement("style"));
+        
 
         // element dom de la page inscription
 
@@ -412,13 +414,111 @@ if(filename == "loginController.php" || filename == "registerController.php") {
 
     
 } else if(filename == "showlistController.php") {
-    let main = document.getElementById('showcontainer');
-    for(let i = 0; i < sessionStorage.length; i++) {
-        main.innerHTML += sessionStorage.getItem(sessionStorage.key(i));
+
+    let errorAcclistname;
+
+    let submit = document.getElementById('confirmlistname');
+    let error = document.getElementById('notif');
+
+    let listname = document.getElementById('listname');
+    let checkbox = document.getElementById('check');
+
+    const checkexistListName = () => {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+                    if(this.responseText != "false") {
+                        errorAcclistname = 2;
+                        listname.style.border = "solid 1px #C42021";
+                        styleElem.innerHTML += '#bsinput::before {position: absolute; font-family: FontAwesome; content: "\\f06a"; color: #E20203; font-size: 1rem; top: 0.36rem; right: .6rem;}'
+                    } else if(!/^.{4,18}$/gi.test(listname.value)) {
+                        errorAcclistname = 1;
+                        listname.style.border = "solid 1px #C42021";
+                        styleElem.innerHTML += '#bsinput::before {position: absolute; font-family: FontAwesome; content: "\\f06a"; color: #C42021; font-size: 1rem; top: 0.36rem; right: .6rem;}'
+                    } else {
+                        errorAcclistname = 0;
+                        listname.style.border = "solid 1px #5AFF15";
+                        styleElem.innerHTML += '#bsinput::before {position: absolute; font-family: FontAwesome; content: "\\f058"; color: #5AFF15; font-size: 1rem; top: 0.36rem; right: .6rem;}'
+                    }
+                }
+                }
+            xmlhttp.open("GET", "../controllers/indexController.php?listname=" + listname.value, true)
+            xmlhttp.send();
+        };
+
+    listname.onkeyup = () => {
+        checkexistListName();
     }
 
-} else {
-    console.log(filename)
+    const animationError = () => {
+        gsap.to("#notif", {y: 50, duration: 3, delay: 1});
+        gsap.to("#notif", {opacity: 0, duration: 1, delay: 2});
+    }
+
+    
+
+    submit.addEventListener('click', (e) => {
+        if(errorAcclistname === 0) {
+
+        } else if(errorAcclistname === 1) {
+            e.preventDefault();
+            error.innerHTML = "<div class='errormsg'>Un nom de liste doit comporter 4 caractères minimum.</div>"
+            animationError();
+        } else if(errorAcclistname === 2) {
+            e.preventDefault();
+            error.innerHTML = "<div class='errormsg'>Ce nom de liste est déjà utiliser.</div>"
+            animationError();
+        } else {
+            e.preventDefault();
+            error.innerHTML = "<div class='errormsg'>Veuillez entrer un nom de liste.</div>"
+            animationError();
+        }
+    });
+
+    const changeStatus = (statusValue) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText)
+        }
+        }
+        xmlhttp.open("GET", "../controllers/indexController.php?statuslist=" + statusValue, true);
+        xmlhttp.send();
+    };
+
+    checkbox.addEventListener('click', function() {
+        if(checkbox.checked == true) {
+            changeStatus(1);
+        } else {
+            changeStatus(0);
+        }
+    })
+
+    let removed = document.querySelectorAll('.removed');
+    let title = document.querySelectorAll('.card-title');
+
+    const deleteShow = (deletingshowTitle) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText)
+        }
+        }
+        xmlhttp.open("GET", "../controllers/indexController.php?deletingshow=" + deletingshowTitle, true)
+        xmlhttp.send();
+    };
+
+    for(let i = 0; i < removed.length; i++) {
+        removed[i].addEventListener("click", (e) => {
+                e.stopPropagation();
+                deleteShow(title[i].childNodes[0].childNodes[0].textContent);
+                location.reload();
+        })
+    }
+
+} else  {
+
     gsap.set(".litem", {x:900});
     gsap.set(".logo", {autoAlpha: 0});
 
@@ -431,4 +531,5 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     tl.to(".communitybox", {x: -900});
     
     tl.to(".logo", {autoAlpha: 1});
+
 }

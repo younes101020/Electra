@@ -573,9 +573,9 @@ input[type=text], input[type=email] {
 }
 #vertical_display #input_container:after {
   font-family: FontAwesome;
-  content: "\f002";
+  content: "\f3eb";
   position: absolute;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   padding: 0.4rem 13.5rem 0 0;
   color: #F1D302;
   clip-path: polygon(0px 0px, 0px 0px, 100% 0px, 100% 10%, 100% 85%, 50% 100%, 50% 100%, 0% 85%, 0% 10%);
@@ -584,7 +584,7 @@ input[type=text], input[type=email] {
   font-family: FontAwesome;
   content: "\f0b0";
   position: absolute;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   padding: 0.4rem 0 0 13.5rem;
   color: #F1D302;
   clip-path: polygon(0px 0px, 0px 0px, 100% 0px, 100% 10%, 100% 85%, 50% 100%, 50% 100%, 0% 85%, 0% 10%);
@@ -592,7 +592,7 @@ input[type=text], input[type=email] {
 #vertical_display #input_container #search_bar {
   width: 12rem;
   padding: 0 1.8rem;
-  height: 1.6rem;
+  height: 1.8rem;
   z-index: 2000;
   font-family: Arial, Helvetica, sans-serif;
   background: transparent;
@@ -1780,13 +1780,105 @@ input[type=text], input[type=email] {
 
 .title {
   text-align: center;
-  margin-bottom: 4.5rem;
+  position: relative;
+  padding: 0 0 3rem 0;
+}
+.title .changelistname {
+  display: flex;
+  justify-content: center;
+}
+.title .changelistname form {
+  padding: 0 0 2rem 0;
+  position: relative;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.title .changelistname form #bsinput input {
+  background: transparent;
+  border: 0.1rem solid #F1D302;
+  font-family: sans-serif;
+  border-radius: 100vw;
+  height: 1.5rem;
+  width: 10rem;
+  color: #F1D302;
+  font-weight: 100;
+  padding: 0 1rem;
+}
+.title .changelistname form #bsinput input::placeholder {
+  color: #F1D302;
+  font-size: 1em;
+  font-family: sans-serif;
+}
+.title .changelistname form #bsinput input:focus {
+  outline: none;
+}
+.title .changelistname form input[type=submit] {
+  background-color: #F1D302 !important;
+  width: fit-content;
+  align-self: center;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1rem;
+  font-weight: 100;
+  border-radius: 100vw;
+  padding: 0.2rem 1rem;
+  cursor: pointer;
 }
 .title h1 {
-  font-size: 2rem;
-  background-color: #F1D302;
-  color: rgb(0, 0, 0);
+  font-size: 3rem;
+  color: #F1D302;
   font-style: italic;
+}
+.title h1 .fa-pen {
+  font-size: 0.7em;
+  cursor: pointer;
+}
+.title:after {
+  content: "showlist";
+  position: absolute;
+  color: transparent;
+  -webkit-text-stroke: 0.05rem yellow;
+  font-size: 6rem;
+  opacity: 0.5;
+  top: -3rem;
+  left: 40%;
+  z-index: -1;
+}
+.title .publication {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.title .publication p {
+  color: #F1D302;
+}
+.title .publication .switch {
+  align-self: center;
+  display: inline-block;
+  font-size: 20px;
+  height: 1em;
+  width: 2em;
+  background: rgba(241, 211, 2, 0.8);
+  border-radius: 1em;
+}
+.title .publication .switch div {
+  height: 1em;
+  width: 1em;
+  border-radius: 1em;
+  background: #F1D302;
+  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  transition: all 300ms;
+}
+.title .publication .switch input:checked + div {
+  -webkit-transform: translate3d(100%, 0, 0);
+  -moz-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+.title .publication .switch #check {
+  display: none;
 }
 
 .container {
@@ -1860,6 +1952,22 @@ input[type=text], input[type=email] {
 .container .card .card-title h1 {
   background-color: #000000;
   font-weight: 100;
+}
+
+.swiper {
+  width: 200px;
+  height: 274px;
+}
+.swiper .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.swiper .swiper-slide:nth-child(1n) {
+  background-color: rgb(206, 17, 17);
 }
 
 footer {

@@ -1,16 +1,33 @@
     <body class="forced_no_overflow">
     <?php require_once '../inc/header_account.php'; ?>
         <main>
+            <div id="notif"></div>
             <div class="title">
-                <h1><?= calllistName(); ?></h1>
+                <h1><?= calllistName(); ?> <i class="fa-solid fa-pen"></i></h1>
+                <div class="changelistname">
+                    <form action="../controllers/showlistController.php" method="POST">
+                        <div id="bsinput">
+                            <input type="text" id="listname" name="listname" placeholder="Ma liste...">
+                        </div>
+                        <input id="confirmlistname" type="submit" value="Valider">
+                    </form>
+                </div>
+                
+                <div class="publication">
+                    <p>Privé</p><label class="switch"><input id="check" type="checkbox" />
+                        <div></div>
+                    </label><p>Public</p>
+                </div>
+                
             </div>
+
             <div class="container">
                 <?php foreach(callShowlist() as $val): ?>
                     <div class="card" style="background-image: url('<?= $val->image; ?>')">
                         <div class="card-banner">
-                        <a class="call-to-action" href="#"><i class="fa-solid fa-xmark"></i></a>
+                        <a class="call-to-action removed" href="#"><i class="fa-solid fa-xmark"></i></a>
                         <a class="call-to-action" target="_BLANK" href="<?= $val->buy; ?>"><i class="fa-solid fa-cart-shopping"></i></a>
-                        <a class="call-to-action" href="#"><i class="fa-solid fa-check"></i></a>
+                        <a class="call-to-action finished" href="#"><i class="fa-solid fa-check"></i></a>
                         </div>
                         <div class="card-title"><h1><i><?= $val->name; ?></i></h1></div>
                     </div>
@@ -18,9 +35,7 @@
             </div>
 
         </main>
-        <footer>
-            <p>Electra 2022 - Tout droit réservé</p>
-        </footer>
+        <?php require_once '../inc/footer.php'; ?>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
         <script src="../js/main.js"></script>

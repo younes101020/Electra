@@ -58,6 +58,16 @@ class Show extends Database{
         }
         
     }
+    //Cette fonction permet de vérifier si le nom d'une liste existe déjà
+    public function getlistByListName()
+    {
+        $sqlQuery = 'SELECT id FROM `' . DB_PREFIX . 'movielists` WHERE `name` = :listname';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':listname', $this->listname, PDO::PARAM_STR);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetch();
+        return json_encode($queryResult);
+    }
     // Cette fonction permet de récupérer le nom de la liste de l'utilisateur
     public function getListName() {
         $sqlQuery = 'SELECT name FROM ' . DB_PREFIX .'movielists WHERE id_users = :id_users';
@@ -67,6 +77,14 @@ class Show extends Database{
         $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
 
         $this->listname = $queryResult->name;
+    }
+    // Cette fonction permet de modifier le nom de la liste de l'utilisateur
+    public function setListName() {
+        $sqlReset = 'UPDATE '. DB_PREFIX .'movielists SET name = :listname WHERE id_users = :id_users';
+        $resetExecute = $this->db->prepare($sqlReset);
+        $resetExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+        $resetExecute->bindValue(':listname', $this->listname, PDO::PARAM_STR);
+        $resetExecute->execute();
     }
     // Cette fonction permet d'initialiser une liste pour ca showlist
     public function addList() {
@@ -161,6 +179,29 @@ class Show extends Database{
         } else {
             return "Le film n'est pas dans la movielist !";
         }
+    }
+    // Cette fonction permet de vérifier l'état des listes
+    public function getListDetails() {
+        $sqlQuery = 'SELECT s.name, s.note, s.commentaire, s.blocked, s.validated, s.id_users
+                    FROM ' . DB_PREFIX . 'movielists AS s
+                    INNER JOIN ' . DB_PREFIX . 'movieslistscontent AS mlc ON mlc.id_movielists = :listid
+                    INNER JOIN ' . DB_PREFIX . 'movies AS mov ON mlc.id_movies = mov.id
+                    WHERE s.id = :listid 
+                    LIMIT 1';
+
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_INT);
+        $queryExecute->execute();
+        $usershowlist = $queryExecute->fetchAll(PDO::FETCH_OBJ);
+        return $usershowlist;
+    }
+    // Cette fonction permet de mettre à jour
+    public function setListStatus() {
+        $sqlReset = 'UPDATE ' . DB_PREFIX . 'movielists SET ' . DB_PREFIX . 'movielists.validated = :validated WHERE ' . DB_PREFIX . 'movielists.id_users = :id_users';
+        $resetExecute = $this->db->prepare($sqlReset);
+        $resetExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+        $resetExecute->bindValue(':validated', $this->validated, PDO::PARAM_INT);
+        $resetExecute->execute();
         
     }
 }

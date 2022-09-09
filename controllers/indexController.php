@@ -54,4 +54,14 @@
         $showlist = $show->checkmovieinList();
         echo $showlist;
 
+    } else if(isset($_GET['listname'])) {
+
+        $show->listname = $_GET['listname'];
+        echo $show->getlistByListName();
+
+    } else if(isset($_GET['statuslist'])) {
+        
+        $show->validated = $_GET['statuslist'];
+        $show->setListStatus();
+
     }

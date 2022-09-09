@@ -3,6 +3,12 @@
     require '../inc/bootstrap.php';
     App::getAuth()->restrict();
 
+    if(isset($_POST['listname'])) {
+        $show = App::getShow();
+        $show->listname = $_POST['listname'];
+        $show->setListName();
+    } 
+
     // Récupération de la showlist de l'utilisateur
     function callShowlist() {
         $show = App::getShow();
@@ -34,5 +40,5 @@
     
 
     $title = "Ma showlist - Electra";
-    include '../inc/header.php';
-    include '../views/showlist.php';
+    include_once '../inc/header.php';
+    include_once '../views/showlist.php';
