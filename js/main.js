@@ -415,13 +415,31 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     
 } else if(filename == "showlistController.php") {
 
+    let checkbox = document.getElementById('check');
+
+    const getCurrentStatus = () => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText == 1) {
+                    checkbox.checked = true;
+                } else {
+                    checkbox.checked = false;
+                }
+        }
+        }
+        xmlhttp.open("GET", "../controllers/indexController.php?getstatuslist=pasbesoindeparam", false);
+        xmlhttp.send();
+    };
+
+    document.addEventListener('DOMContentLoaded', getCurrentStatus());
+
     let errorAcclistname;
 
     let submit = document.getElementById('confirmlistname');
     let error = document.getElementById('notif');
 
     let listname = document.getElementById('listname');
-    let checkbox = document.getElementById('check');
 
     const checkexistListName = () => {
         var xmlhttp = new XMLHttpRequest();

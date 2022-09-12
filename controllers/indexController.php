@@ -60,8 +60,18 @@
         echo $show->getlistByListName();
 
     } else if(isset($_GET['statuslist'])) {
-        
+
         $show->validated = $_GET['statuslist'];
         $show->setListStatus();
+
+    } else if(isset($_GET['getstatuslist'])) {
+
+        $show->getList();
+
+        $details = $show->getListDetails();
+
+        $validated = $details->validated;
+        
+        echo json_encode($validated);
 
     }

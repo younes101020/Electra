@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;1,200&display=swap');
+
 $color-text: #F1D302;
 $color-error-text: #C42021;
 
@@ -1307,8 +1309,11 @@ input[type=text], input[type=email] {
 }
 
 .swiper {
-    width: 200px;
-    height: 274px;
+    width: 12rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     .swiper-slide {
         display: flex;
         align-items: center;
@@ -1318,7 +1323,83 @@ input[type=text], input[type=email] {
         font-weight: bold;
       }
       .swiper-slide:nth-child(1n) {
-        background-color: rgb(206, 17, 17);
+        position: relative;
+        border: 1px solid $color-text; 
+        .movielistname {
+            font-weight: 500;
+            position: absolute;
+            background-color: transparent;
+            border: 1px solid $color-text;
+            padding: .2rem .5rem .2rem .2rem;
+            font-size: .8rem;
+            z-index: 9000;
+            color: $color-text;
+            border-top-right-radius: 100vw;
+            border-bottom-right-radius: 100vw;
+            left: 0rem;
+            bottom: 3rem;
+        }
+        .username {
+            position: absolute;
+            z-index: 9000;
+            left: 0;
+            bottom: 1rem;
+            background-color: transparent;
+            border: 1px solid $color-text;
+            padding: .2rem .5rem .2rem .2rem;
+            font-size: .8rem;
+            font-weight: 500;
+            color: $color-text;
+            border-top-right-radius: 100vw;
+            border-bottom-right-radius: 100vw;
+        }
+        .tl_card_body {
+            position: absolute;
+            bottom: 0;
+            height: 8rem;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 1);
+            .tl_card_title {
+                padding: .5rem 1rem;
+                color: $color-text;
+                font-style: italic;
+                font-weight: 500;
+                font-size: 1.1rem;
+                position: relative;
+                width: max-content;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 1px;
+                    width: calc(100% + 1rem);
+                    left: calc(1rem * -1);
+                    bottom: -2px;
+                    background: $color-text;
+                }
+            }
+            .tl_card_action {
+                height: 70%;
+                display: flex;
+                justify-content: flex-end;
+                padding: 0 1rem;
+                align-items: center;
+                .fa-cart-shopping {
+                    color: $color-text;
+                    padding: .8rem;
+                    border-radius: 100vw;
+                    background-color: transparent;
+                    border: 1px solid $color-text;
+                }
+            }
+        }
+      }
+      .interaction {
+        display: flex;
+        justify-content: space-around;
+        .fa-face-frown, .fa-face-meh, .fa-face-smile {
+            color: $color-text;
+            cursor: pointer;
+        }
       }
 }
 

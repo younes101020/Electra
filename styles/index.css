@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,300;1,200&display=swap");
 body {
   padding: 0;
   margin: 0;
@@ -1955,8 +1956,11 @@ input[type=text], input[type=email] {
 }
 
 .swiper {
-  width: 200px;
-  height: 274px;
+  width: 12rem;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .swiper .swiper-slide {
   display: flex;
@@ -1967,7 +1971,83 @@ input[type=text], input[type=email] {
   font-weight: bold;
 }
 .swiper .swiper-slide:nth-child(1n) {
-  background-color: rgb(206, 17, 17);
+  position: relative;
+  border: 1px solid #F1D302;
+}
+.swiper .swiper-slide:nth-child(1n) .movielistname {
+  font-weight: 500;
+  position: absolute;
+  background-color: transparent;
+  border: 1px solid #F1D302;
+  padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+  font-size: 0.8rem;
+  z-index: 9000;
+  color: #F1D302;
+  border-top-right-radius: 100vw;
+  border-bottom-right-radius: 100vw;
+  left: 0rem;
+  bottom: 3rem;
+}
+.swiper .swiper-slide:nth-child(1n) .username {
+  position: absolute;
+  z-index: 9000;
+  left: 0;
+  bottom: 1rem;
+  background-color: transparent;
+  border: 1px solid #F1D302;
+  padding: 0.2rem 0.5rem 0.2rem 0.2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #F1D302;
+  border-top-right-radius: 100vw;
+  border-bottom-right-radius: 100vw;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body {
+  position: absolute;
+  bottom: 0;
+  height: 8rem;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_title {
+  padding: 0.5rem 1rem;
+  color: #F1D302;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.1rem;
+  position: relative;
+  width: max-content;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_title:after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: calc(100% + 1rem);
+  left: -1rem;
+  bottom: -2px;
+  background: #F1D302;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action {
+  height: 70%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1rem;
+  align-items: center;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .fa-cart-shopping {
+  color: #F1D302;
+  padding: 0.8rem;
+  border-radius: 100vw;
+  background-color: transparent;
+  border: 1px solid #F1D302;
+}
+.swiper .interaction {
+  display: flex;
+  justify-content: space-around;
+}
+.swiper .interaction .fa-face-frown, .swiper .interaction .fa-face-meh, .swiper .interaction .fa-face-smile {
+  color: #F1D302;
+  cursor: pointer;
 }
 
 footer {

@@ -192,7 +192,7 @@ class Show extends Database{
         $queryExecute = $this->db->prepare($sqlQuery);
         $queryExecute->bindValue(':listid', $this->listid, PDO::PARAM_INT);
         $queryExecute->execute();
-        $usershowlist = $queryExecute->fetchAll(PDO::FETCH_OBJ);
+        $usershowlist = $queryExecute->fetch(PDO::FETCH_OBJ);
         return $usershowlist;
     }
     // Cette fonction permet de mettre à jour
@@ -203,5 +203,19 @@ class Show extends Database{
         $resetExecute->bindValue(':validated', $this->validated, PDO::PARAM_INT);
         $resetExecute->execute();
         
+    }
+    // Cette fonction renvoi la liste des showlist public
+    public function getPublicShowlist() {
+        $sqlQuery = 'SELECT mov.name AS mname, mov.image, mov.buy, s.name AS lname, u.username
+            FROM ' . DB_PREFIX . 'movielists AS s
+            INNER JOIN ' . DB_PREFIX . 'movieslistscontent AS mlc ON mlc.id_movielists = s.id
+            INNER JOIN ' . DB_PREFIX . 'users AS u ON u.id = s.id_users
+            INNER JOIN ' . DB_PREFIX . 'movies AS mov ON mlc.id_movies = mov.id
+            WHERE s.validated = 1';
+
+            $queryExecute = $this->db->prepare($sqlQuery);
+            $queryExecute->execute();
+            $publicshowlists = $queryExecute->fetchAll(PDO::FETCH_OBJ);
+            return $publicshowlists;
     }
 }
