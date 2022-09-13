@@ -516,8 +516,19 @@ input[type=text], input[type=email] {
   display: flex;
   justify-content: center;
   padding: 0;
-  padding: 0 5rem;
+  padding: 0 7rem;
   gap: 1.5rem;
+}
+#navbar .toggle_menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+}
+#navbar .toggle_menu .toggle_bar {
+  width: 2rem;
+  height: 0.1rem;
+  background-color: #F1D302;
 }
 #navbar .nav_list {
   list-style-type: none;
@@ -606,7 +617,7 @@ input[type=text], input[type=email] {
 }
 #vertical_display #show {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
@@ -1034,8 +1045,7 @@ input[type=text], input[type=email] {
 @media (max-width: 1230px) {
   #vertical_display #show {
     grid-template-rows: repeat(1, 1fr);
-    grid-template-columns: repeat(7, 1fr);
-    padding: 0 0 3rem 5rem;
+    grid-template-columns: repeat(6, 1fr);
     min-height: auto;
   }
   #vertical_display #show #top_show {
@@ -1956,11 +1966,12 @@ input[type=text], input[type=email] {
 }
 
 .swiper {
-  width: 12rem;
+  width: 13rem;
   height: 20rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
+  padding-top: 5rem !important;
 }
 .swiper .swiper-slide {
   display: flex;
@@ -1980,7 +1991,7 @@ input[type=text], input[type=email] {
   background-color: transparent;
   border: 1px solid #F1D302;
   padding: 0.2rem 0.5rem 0.2rem 0.2rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   z-index: 9000;
   color: #F1D302;
   border-top-right-radius: 100vw;
@@ -1996,7 +2007,7 @@ input[type=text], input[type=email] {
   background-color: transparent;
   border: 1px solid #F1D302;
   padding: 0.2rem 0.5rem 0.2rem 0.2rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #F1D302;
   border-top-right-radius: 100vw;
@@ -2007,14 +2018,14 @@ input[type=text], input[type=email] {
   bottom: 0;
   height: 8rem;
   width: 100%;
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_title {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0rem 1rem;
   color: #F1D302;
   font-style: italic;
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   position: relative;
   width: max-content;
 }
@@ -2033,13 +2044,29 @@ input[type=text], input[type=email] {
   justify-content: flex-end;
   padding: 0 1rem;
   align-items: center;
+  position: relative;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .fa-message {
+  color: #F1D302;
+  padding: 0.8rem;
+  border-top-left-radius: 100vw;
+  border-top-right-radius: 100vw;
+  background-color: transparent;
+  border: 1px solid #F1D302;
+  position: absolute;
+  right: 5rem;
+  bottom: 0;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .fa-cart-shopping {
   color: #F1D302;
   padding: 0.8rem;
-  border-radius: 100vw;
+  border-top-left-radius: 100vw;
+  border-top-right-radius: 100vw;
   background-color: transparent;
   border: 1px solid #F1D302;
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
 }
 .swiper .interaction {
   display: flex;
@@ -2064,6 +2091,15 @@ footer {
 }
 footer p {
   align-self: center;
+}
+
+@media (max-width: 1000px) {
+  #navbar .toggle_menu {
+    display: flex;
+  }
+  #navbar .nav_list {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

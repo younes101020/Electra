@@ -1,7 +1,4 @@
 <body class="forced_no_overflow">
-    <?php if(App::getAuth()->user()): ?>
-        <li class="logout"><a href="logoutController.php">Déconnexion <i class="fa-solid fa-arrow-up-left-from-circle"></i></a></li>
-    <?php endif; ?>
     
     <!-- Afficher chaque message flash (le status de l'utilisateur) si il y en a -->
     <?php if(Session::getInstance()->hasFlashes()): ?>
@@ -32,6 +29,7 @@
                 </form>
         </div>
     </div>
+    
     <script src="../js/account.js"></script>
 </body>
 </html>

@@ -18,6 +18,7 @@
 
     $title = "Mon compte - Electra";
     include_once '../inc/header.php';
+    include_once '../inc/header_account.php';
     include_once '../views/account.php';
     if(Session::getInstance()->hasFlashes()) {
         foreach(Session::getInstance()->getFlashes() as $key => $message) {

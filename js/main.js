@@ -550,4 +550,17 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     
     tl.to(".logo", {autoAlpha: 1});
 
+
+    let mobile_navbar = document.getElementsByClassName('.toggle_menu');
+    let mobile_bars = document.querySelectorAll('.toggle_bar');
+
+
+
+    mobile_navbar.addEventListener('click', function() {
+        
+    });
+
+    tl.to("", {});
+    tl.to("", {});
+
 }

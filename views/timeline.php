@@ -1,7 +1,7 @@
 <body class="forced_no_overflow">
     <?php include_once '../inc/header_account.php'; ?>
 
-        <main style="top: 35%; width: 100%; position: absolute;">
+        <main>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <?php foreach($publicshowlists as $val): ?>
@@ -13,6 +13,9 @@
                             <div class="tl_card_action">
                                 <a target="_BLANK" href="<?= $val->buy; ?>">
                                     <i class="fa-solid fa-cart-shopping"></i>
+                                </a>
+                                <a target="_BLANK" href="#">
+                                    <i class="fa-sharp fa-solid fa-message"></i>
                                 </a>
                             </div>
                         </div>
