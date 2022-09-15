@@ -26,6 +26,57 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         let errorAccmail;
         let errorAccpass;
 
+        let error = document.getElementById('notif');
+
+
+        let mobileNavbar = document.querySelector('.toggle_menu');
+        let togglemenu = document.querySelectorAll("a")[5].classList;
+
+        let mobileTl = gsap.timeline({});
+
+        gsap.set(".navcontainer", {autoAlpha:0,x: 900});
+
+        mobileNavbar.addEventListener('click', function() {
+            console.log('test')
+            if(!togglemenu.toggle("toggle_func")) {
+                mobileTl.to(".navcontainer", {autoAlpha: 1,x: 0});
+                mobileTl.to(".toggle_bar", {backgroundColor: "black"})
+                mobileTl.to(".top", {transform: "rotate(36deg)", position: "absolute"}, "-=1");
+                mobileTl.to(".middle", {autoAlpha:0}, "-=1");
+                mobileTl.to(".bottom", {transform: "rotate(-36deg)", position: "absolute"}, "-=1");
+                mobileTl.restart();
+            } else {
+                mobileTl.reverse();
+            }
+        });
+        gsap.set(".litem", {x:900});
+        gsap.set(".logo", {autoAlpha: 0});
+
+        let tl = gsap.timeline({duration:1});
+        
+        let editbtn = document.querySelector('.fa-pen')
+
+        tl.to(".spidermanbox", {x: -900});
+        tl.to(".womenbox", {x: -900});
+        tl.to(".communitybox", {x: -900});
+        
+        tl.to(".logo", {autoAlpha: 1});
+
+        let editTl = gsap.timeline({});
+
+        let toggleEdit = document.querySelector('.changelistname').classList;
+        gsap.set(".changelistname", {autoAlpha: 0, y:-900});
+
+        editbtn.addEventListener('click', function() {
+            if(!toggleEdit.toggle('toggleedit')) {
+                editTl.to(".changelistname", {y:0, autoAlpha: 1});
+                editTl.restart();
+            } else {
+                editTl.reverse();
+            }
+            
+        })
+
         // Les deux prochaines fonctions ont nécessiter AJAX car je souhaite vérifier des données php en javascript
         // Deux vérifications ont été faites: La regex et la vérification de donnée déjà existante
 
@@ -115,7 +166,6 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             } else {
                 e.preventDefault();
 
-                let error = document.getElementById('notif');
                 let errArr = [passInput, mailInput, firstInput];
                 for(let i=0; i < errArr.length; i++) {
                     if(errArr[i].style.border === "" && errArr[i].getAttribute('type') === "text") {
@@ -437,7 +487,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     let errorAcclistname;
 
     let submit = document.getElementById('confirmlistname');
-    let error = document.getElementById('notif');
+    
 
     let listname = document.getElementById('listname');
 
@@ -535,32 +585,42 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         })
     }
 
-} else  {
+} else if(filename == "timelineController.php") {
+    let commentTl = gsap.timeline({});
 
-    gsap.set(".litem", {x:900});
-    gsap.set(".logo", {autoAlpha: 0});
+    let commentBtn = document.querySelector('.comments');
+    let toggle = document.querySelector('.tl_card_body').classList;
 
-    let tl = gsap.timeline({duration:1});
-    
-    
+    let submit = document.querySelector('.submit_btn');
+    let commentaire = document.getElementById('commentaire');
 
-    tl.to(".spidermanbox", {x: -900});
-    tl.to(".womenbox", {x: -900});
-    tl.to(".communitybox", {x: -900});
-    
-    tl.to(".logo", {autoAlpha: 1});
-
-
-    let mobile_navbar = document.getElementsByClassName('.toggle_menu');
-    let mobile_bars = document.querySelectorAll('.toggle_bar');
-
-
-
-    mobile_navbar.addEventListener('click', function() {
+    commentBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if(!toggle.toggle('togglecomment')) {
+            commentTl.to('.buy', {autoAlpha: 0});
+            commentTl.to('.tl_card_body', {height: "100%"});
+            commentTl.to('.comments', {y: -190}, "<");
+            commentTl.to('.movielistname', {x: -150}, "<")
+            commentTl.to('.tl_card_title', {x: -150}, "<");
+            commentTl.to('.form-comment', {display: "flex"})
+            commentTl.restart();
+        } else {
+            commentTl.reverse();
+        }
         
     });
 
-    tl.to("", {});
-    tl.to("", {});
+    submit.addEventListener('click', function(e) {
+        if(/[A-Z0-9]{1,}/.test(commentaire.value)) {
+            error.innerHTML = "<div class='successmsg'>Votre message a bien été envoyé.</div>"
+        } else {
+            e.preventDefault();
+            error.innerHTML = "<div class='errormsg'>Votre message n'as pas été envoyé.</div>"
+        } 
+    })
 
 }
+
+    
+
+    

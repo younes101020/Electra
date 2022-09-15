@@ -4,7 +4,7 @@
             <div id="notif"></div>
             <div class="title">
                 <h1><?= calllistName(); ?> <i class="fa-solid fa-pen"></i></h1>
-                <div class="changelistname">
+                <div class="changelistname toggleedit">
                     <form action="../controllers/showlistController.php" method="POST">
                         <div id="bsinput">
                             <input type="text" id="listname" name="listname" placeholder="Ma liste...">
@@ -37,7 +37,7 @@
         </main>
         <?php require_once '../inc/footer.php'; ?>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
         <script src="../js/main.js"></script>
     </body>
 </html>

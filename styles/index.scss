@@ -631,6 +631,30 @@ input[type=text], input[type=email] {
 
 // Espace accueil principal
 
+.navcontainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: absolute;
+    background-color: $color-text;
+    width: 100vw;
+    z-index: 9998;
+    li {
+        list-style-type: none;
+        a {
+            text-decoration: none;
+            color:rgb(0, 0, 0);
+            font-size: 2rem;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
 
 
 #navbar {
@@ -641,6 +665,7 @@ input[type=text], input[type=email] {
     gap: 1.5rem;
     .toggle_menu {
         display: none;
+        z-index: 9999;
         flex-direction: column;
         justify-content: center;
         gap: .4rem;
@@ -674,6 +699,9 @@ input[type=text], input[type=email] {
         color: $color-text;
         font-size: 1.5rem;
         font-weight: 200;
+        .fa-solid {
+            font-size: 2.5rem;
+        }
     }
     #logo {
         flex: 1;
@@ -1321,13 +1349,14 @@ input[type=text], input[type=email] {
 }
 
 .swiper {
-    width: 13rem;
-    height: 20rem;
+    width: 15rem;
+    height: 23rem;
     display: flex;
     flex-direction: column;
     gap: 4rem;
     padding-top: 5rem !important;
     .swiper-slide {
+        background-size: cover;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1342,29 +1371,12 @@ input[type=text], input[type=email] {
             font-weight: 500;
             position: absolute;
             background-color: transparent;
-            border: 1px solid $color-text;
             padding: .2rem .5rem .2rem .2rem;
             font-size: 1rem;
             z-index: 9000;
             color: $color-text;
-            border-top-right-radius: 100vw;
-            border-bottom-right-radius: 100vw;
             left: 0rem;
             bottom: 3rem;
-        }
-        .username {
-            position: absolute;
-            z-index: 9000;
-            left: 0;
-            bottom: 1rem;
-            background-color: transparent;
-            border: 1px solid $color-text;
-            padding: .2rem .5rem .2rem .2rem;
-            font-size: 1rem;
-            font-weight: 500;
-            color: $color-text;
-            border-top-right-radius: 100vw;
-            border-bottom-right-radius: 100vw;
         }
         .tl_card_body {
             position: absolute;
@@ -1372,6 +1384,31 @@ input[type=text], input[type=email] {
             height: 8rem;
             width: 100%;
             background-color: rgba(0, 0, 0, .7);
+            .form-comment {
+                display: none;
+                position: absolute;
+                align-items: flex-end;
+                justify-content: center;
+                height: 100%;
+                width: 100%;
+                input[type=text] {
+                    background-color: transparent;
+                    border: 1px solid $color-text;
+                    border-radius: 100vw;
+                    margin: 0 0 1rem 0;
+                    color: $color-text;
+                    font-family: sans-serif;
+                }
+                .submit_btn {
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    .fa-paper-plane {
+                        color: $color-text;
+                        margin: 0 0 1.1rem 0
+                    }
+                }
+            }
             .tl_card_title {
                 padding: 0.5rem 1rem 0rem 1rem;
                 color: $color-text;
@@ -1391,33 +1428,24 @@ input[type=text], input[type=email] {
                 }
             }
             .tl_card_action {
-                height: 70%;
+                height: 65%;
                 display: flex;
-                justify-content: flex-end;
-                padding: 0 1rem;
-                align-items: center;
-                position: relative;
-                .fa-message {
-                    color: $color-text;
-                    padding: 0.8rem;
-                    border-top-left-radius: 100vw;
-                    border-top-right-radius: 100vw;
-                    background-color: transparent;
-                    border: 1px solid $color-text;
-                    position: absolute;
-                    right: 5rem;
-                    bottom: 0;
-                }
-                .fa-cart-shopping {
-                    color: $color-text;
-                    padding: 0.8rem;
-                    border-top-left-radius: 100vw;
-                    border-top-right-radius: 100vw;
-                    background-color: transparent;
-                    border: 1px solid $color-text;
-                    position: absolute;
-                    right: 1rem;
-                    bottom: 0;
+                justify-content: center;
+                gap: .5rem;
+                align-items: flex-end;
+                .card_action {
+                    display: flex;
+                    gap: .3rem;
+                    color: rgb(0, 0, 0);
+                    padding: 0.3rem .8rem;
+                    margin: .4rem 0;
+                    border-radius: 50vw;
+                    background-color: $color-text;
+                    font-size: 1rem;
+                    text-decoration: none;
+                    .fa-solid {
+                        align-self: center;
+                    }
                 }
             }
         }
@@ -1453,6 +1481,7 @@ footer {
     #navbar {
         .toggle_menu {
         display: flex;
+        cursor: pointer;
         }
         .nav_list {
             display: none;

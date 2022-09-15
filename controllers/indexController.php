@@ -74,4 +74,10 @@
         
         echo json_encode($validated);
 
+    } else if(isset($_GET['message'])) {
+
+        $show->commentaire = $_GET['message'];
+
+        $show->getList();
+        $show->setComment();
     }

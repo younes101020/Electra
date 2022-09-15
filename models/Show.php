@@ -218,4 +218,19 @@ class Show extends Database{
             $publicshowlists = $queryExecute->fetchAll(PDO::FETCH_OBJ);
             return $publicshowlists;
     }
+    // Cette fonction ajoute un commentaire dans la db
+    public function setComment() {
+        $sqlQuery = 'INSERT INTO `' . DB_PREFIX . 'comments`(`content`, `blocked`, `validated`, `id_users`, `id_movielists`)
+        VALUES (:content, :blocked, :validated, :id_users, :id_movielists)';
+
+        $queryExecute = $this->db->prepare($sqlQuery);
+
+        $queryExecute->bindValue(':content', $this->commentaire, PDO::PARAM_STR);
+        $queryExecute->bindValue(':blocked', $this->blocked, PDO::PARAM_INT);
+        $queryExecute->bindValue(':validated', $this->validated, PDO::PARAM_INT);
+        $queryExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+        $queryExecute->bindValue(':id_movielists', $this->listid, PDO::PARAM_INT);
+
+        return $queryExecute->execute();
+    }
 }

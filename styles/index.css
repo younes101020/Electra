@@ -512,6 +512,30 @@ input[type=text], input[type=email] {
   cursor: pointer;
 }
 
+.navcontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: absolute;
+  background-color: #F1D302;
+  width: 100vw;
+  z-index: 9998;
+}
+.navcontainer li {
+  list-style-type: none;
+}
+.navcontainer li a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 2rem;
+}
+.navcontainer li a:hover {
+  text-decoration: underline;
+}
+
 #navbar {
   display: flex;
   justify-content: center;
@@ -521,6 +545,7 @@ input[type=text], input[type=email] {
 }
 #navbar .toggle_menu {
   display: none;
+  z-index: 9999;
   flex-direction: column;
   justify-content: center;
   gap: 0.4rem;
@@ -565,6 +590,9 @@ input[type=text], input[type=email] {
   color: #F1D302;
   font-size: 1.5rem;
   font-weight: 200;
+}
+#navbar #nav_logo .fa-solid {
+  font-size: 2.5rem;
 }
 #navbar #logo {
   flex: 1;
@@ -1966,14 +1994,15 @@ input[type=text], input[type=email] {
 }
 
 .swiper {
-  width: 13rem;
-  height: 20rem;
+  width: 15rem;
+  height: 23rem;
   display: flex;
   flex-direction: column;
   gap: 4rem;
   padding-top: 5rem !important;
 }
 .swiper .swiper-slide {
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1989,29 +2018,12 @@ input[type=text], input[type=email] {
   font-weight: 500;
   position: absolute;
   background-color: transparent;
-  border: 1px solid #F1D302;
   padding: 0.2rem 0.5rem 0.2rem 0.2rem;
   font-size: 1rem;
   z-index: 9000;
   color: #F1D302;
-  border-top-right-radius: 100vw;
-  border-bottom-right-radius: 100vw;
   left: 0rem;
   bottom: 3rem;
-}
-.swiper .swiper-slide:nth-child(1n) .username {
-  position: absolute;
-  z-index: 9000;
-  left: 0;
-  bottom: 1rem;
-  background-color: transparent;
-  border: 1px solid #F1D302;
-  padding: 0.2rem 0.5rem 0.2rem 0.2rem;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #F1D302;
-  border-top-right-radius: 100vw;
-  border-bottom-right-radius: 100vw;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body {
   position: absolute;
@@ -2019,6 +2031,31 @@ input[type=text], input[type=email] {
   height: 8rem;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment {
+  display: none;
+  position: absolute;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment input[type=text] {
+  background-color: transparent;
+  border: 1px solid #F1D302;
+  border-radius: 100vw;
+  margin: 0 0 1rem 0;
+  color: #F1D302;
+  font-family: sans-serif;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment .submit_btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment .submit_btn .fa-paper-plane {
+  color: #F1D302;
+  margin: 0 0 1.1rem 0;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_title {
   padding: 0.5rem 1rem 0rem 1rem;
@@ -2039,34 +2076,25 @@ input[type=text], input[type=email] {
   background: #F1D302;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action {
-  height: 70%;
+  height: 65%;
   display: flex;
-  justify-content: flex-end;
-  padding: 0 1rem;
-  align-items: center;
-  position: relative;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: flex-end;
 }
-.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .fa-message {
-  color: #F1D302;
-  padding: 0.8rem;
-  border-top-left-radius: 100vw;
-  border-top-right-radius: 100vw;
-  background-color: transparent;
-  border: 1px solid #F1D302;
-  position: absolute;
-  right: 5rem;
-  bottom: 0;
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .card_action {
+  display: flex;
+  gap: 0.3rem;
+  color: rgb(0, 0, 0);
+  padding: 0.3rem 0.8rem;
+  margin: 0.4rem 0;
+  border-radius: 50vw;
+  background-color: #F1D302;
+  font-size: 1rem;
+  text-decoration: none;
 }
-.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .fa-cart-shopping {
-  color: #F1D302;
-  padding: 0.8rem;
-  border-top-left-radius: 100vw;
-  border-top-right-radius: 100vw;
-  background-color: transparent;
-  border: 1px solid #F1D302;
-  position: absolute;
-  right: 1rem;
-  bottom: 0;
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_action .card_action .fa-solid {
+  align-self: center;
 }
 .swiper .interaction {
   display: flex;
@@ -2096,6 +2124,7 @@ footer p {
 @media (max-width: 1000px) {
   #navbar .toggle_menu {
     display: flex;
+    cursor: pointer;
   }
   #navbar .nav_list {
     display: none;
