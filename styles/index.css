@@ -65,7 +65,7 @@ input[type=text], input[type=email] {
   font-family: fantasy;
 }
 
-#notif {
+.notif {
   position: absolute;
   display: flex;
   width: 100%;
@@ -85,7 +85,7 @@ input[type=text], input[type=email] {
     top: 2rem;
   }
 }
-#notif .errormsg {
+.notif .errormsg {
   font-size: 1.2rem;
   background-color: rgb(255, 0, 0);
   border-radius: 100vw;
@@ -94,7 +94,7 @@ input[type=text], input[type=email] {
   border-right: 0.4rem solid rgb(156, 12, 12);
   border-bottom: 0.4rem solid rgb(156, 12, 12);
 }
-#notif .successmsg {
+.notif .successmsg {
   font-size: 1.2rem;
   background-color: rgb(0, 255, 30);
   border-radius: 100vw;
@@ -513,6 +513,7 @@ input[type=text], input[type=email] {
 }
 
 .navcontainer {
+  visibility: hidden;
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -1923,7 +1924,7 @@ input[type=text], input[type=email] {
 .container {
   display: flex;
   justify-content: center;
-  padding: 0 5rem;
+  padding: 5rem 5rem 15rem 5rem;
   gap: 2rem;
   flex-wrap: wrap;
 }
@@ -2032,6 +2033,18 @@ input[type=text], input[type=email] {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.7);
 }
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .commentsection {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 65%;
+  width: 90%;
+  padding: 3.5rem 0.5rem;
+  color: #F1D302;
+  font-size: 1.2rem;
+  font-weight: 100;
+}
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment {
   display: none;
   position: absolute;
@@ -2041,14 +2054,18 @@ input[type=text], input[type=email] {
   width: 100%;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment input[type=text] {
+  z-index: 9;
   background-color: transparent;
   border: 1px solid #F1D302;
   border-radius: 100vw;
+  padding: 0 0.5rem;
+  height: 1.5rem;
   margin: 0 0 1rem 0;
   color: #F1D302;
   font-family: sans-serif;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment .submit_btn {
+  z-index: 9;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -2056,6 +2073,7 @@ input[type=text], input[type=email] {
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment .submit_btn .fa-paper-plane {
   color: #F1D302;
   margin: 0 0 1.1rem 0;
+  font-size: 1.2rem;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .tl_card_title {
   padding: 0.5rem 1rem 0rem 1rem;
@@ -2127,6 +2145,11 @@ footer p {
     cursor: pointer;
   }
   #navbar .nav_list {
+    display: none;
+  }
+}
+@media (min-width: 1000px) {
+  .navcontainer {
     display: none;
   }
 }

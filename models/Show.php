@@ -65,8 +65,11 @@ class Show extends Database{
         $queryExecute = $this->db->prepare($sqlQuery);
         $queryExecute->bindValue(':listname', $this->listname, PDO::PARAM_STR);
         $queryExecute->execute();
-        $queryResult = $queryExecute->fetch();
-        return json_encode($queryResult);
+        $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
+
+        $this->listid = $queryResult->id;
+
+        return json_encode($this->listid);
     }
     // Cette fonction permet de récupérer le nom de la liste de l'utilisateur
     public function getListName() {
@@ -206,7 +209,7 @@ class Show extends Database{
     }
     // Cette fonction renvoi la liste des showlist public
     public function getPublicShowlist() {
-        $sqlQuery = 'SELECT mov.name AS mname, mov.image, mov.buy, s.name AS lname, u.username
+        $sqlQuery = 'SELECT mov.name AS mname, mov.image, mov.buy, s.name AS lname, u.username, s.id AS mlid
             FROM ' . DB_PREFIX . 'movielists AS s
             INNER JOIN ' . DB_PREFIX . 'movieslistscontent AS mlc ON mlc.id_movielists = s.id
             INNER JOIN ' . DB_PREFIX . 'users AS u ON u.id = s.id_users
@@ -232,5 +235,16 @@ class Show extends Database{
         $queryExecute->bindValue(':id_movielists', $this->listid, PDO::PARAM_INT);
 
         return $queryExecute->execute();
+    }
+    // Cette fonction permet de récupérer les commentaires
+    public function getComments() {
+        $sqlQuery = 'SELECT u.username AS pseudonyme, content, blocked, validated, id_users, id_movielists AS mlid 
+                    FROM ' . DB_PREFIX .'comments AS com
+                    INNER JOIN ' . DB_PREFIX .'users AS u ON u.id = com.id_users;';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetchAll(PDO::FETCH_OBJ);
+
+        return $queryResult;
     }
 }

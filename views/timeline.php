@@ -2,22 +2,30 @@
     <?php include_once '../inc/header_account.php'; ?>
 
         <main>
+          <div class="notif togglenotif"></div>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <?php foreach($publicshowlists as $val): ?>
                     <div class="swiper-slide" style="background-image: url('<?= $val->image; ?>')">
-                      <div class="movielistname"><i><?= $val->lname; ?> - @<?= $val->username; ?></i></div>
+                      <div class="movielistname"><i><?= $val->lname; ?></i> - <i>@<?= $val->username; ?></i></div>
                         <div class="tl_card_body togglecomment">
-                            <form action="" method="get" class="form-comment">
-                                <input type="text" name="message" id="commentaire">
+                            <div class="form-comment">
+                                <input type="text" name="message" class="commentaire">
                                 <button type="submit" class="submit_btn"><i class="fa-sharp fa-solid fa-paper-plane"></i></button>
-                            </form>
+                            </div>
+                            <div class="commentsection">
+                                <?php foreach($commentsarr as $comment): ?>
+                                    <?php if($comment->mlid == $val->mlid): ?>
+                                        <div><?= $comment->pseudonyme ?> : <i><?= $comment->content ?></i></div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
                             <div class="tl_card_title"><i><?= $val->mname; ?></i></div>
                             <div class="tl_card_action">
                                 <a class="card_action buy" href="<?= $val->buy; ?>">
                                     Acheter <i class="fa-solid fa-cart-shopping"></i>
                                 </a>
-                                <a class="card_action comments" href="#">
+                                <a class="card_action comments" href="">
                                     Commentaires <i class="fa-sharp fa-solid fa-message"></i>
                                 </a>
                             </div>
@@ -34,16 +42,8 @@
         </main>
 
     <?php include_once '../inc/footer.php'; ?>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-        <script src="../js/main.js"></script>
-        
-
-        <script>
-        var swiper = new Swiper(".mySwiper", {
-        effect: "cards",
-        grabCursor: true,
-        });
-        </script>
+        <script type="module" src="../js/main.js"></script>
+          
+</script>
     </body>
 </html>

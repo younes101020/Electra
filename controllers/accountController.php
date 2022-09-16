@@ -23,11 +23,11 @@
     if(Session::getInstance()->hasFlashes()) {
         foreach(Session::getInstance()->getFlashes() as $key => $message) {
             if($key == 'error') {
-                echo "<div id='notif'>
+                echo "<div class='notif'>
                         <p class='errormsg'> <?= $message; ?> </p>
                      </div>";
             } else {
-                echo "<div id='notif'>;
+                echo "<div class='notif'>;
                     <p class='successmsg'> <?= $message; ?> </p>
                 </div>";
             }

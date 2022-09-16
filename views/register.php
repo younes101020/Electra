@@ -1,6 +1,6 @@
 
         <main>
-        <div id="notif"></div>
+        <div class="notif"></div>
         
         <div class="ocontainer">
             <div class="bg-form">

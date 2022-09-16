@@ -74,10 +74,12 @@
         
         echo json_encode($validated);
 
-    } else if(isset($_GET['message'])) {
+    } else if(isset($_GET['message']) && isset($_GET['sentlistnameforcomment'])) {
 
+        $show->listname = $_GET['sentlistnameforcomment'];
         $show->commentaire = $_GET['message'];
 
-        $show->getList();
+        $show->getlistByListName();
+
         $show->setComment();
     }

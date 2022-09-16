@@ -1,7 +1,7 @@
     <body class="forced_no_overflow">
     <?php require_once '../inc/header_account.php'; ?>
         <main>
-            <div id="notif"></div>
+            <div class="notif togglenotif"></div>
             <div class="title">
                 <h1><?= calllistName(); ?> <i class="fa-solid fa-pen"></i></h1>
                 <div class="changelistname toggleedit">
@@ -36,8 +36,5 @@
 
         </main>
         <?php require_once '../inc/footer.php'; ?>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
-        <script src="../js/main.js"></script>
     </body>
 </html>

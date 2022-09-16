@@ -2,9 +2,60 @@
 // avec la page html qui lui correspond ce qui me permettra de ne pas recréer un fichier javascript
 // pour chaque page html
 let filename = location.pathname.split('/').pop();
-
 let styleElem = document.head.appendChild(document.createElement("style"));
 
+let error = document.querySelector('.notif');
+let notifTl = gsap.timeline({});
+gsap.set(".notif", {autoAlpha: 0})
+
+        import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.esm.browser.min.js'
+
+        const swiper = new Swiper(".mySwiper", {
+            effect: "cards",
+            grabCursor: true,
+            });
+
+        const animationError = (toggles) => {
+        if(toggles.toggle('togglenotif')) {
+            notifTl.to(".notif", {autoAlpha: 1, y: 50, duration: 2});
+            notifTl.to(".notif", {autoAlpha: 0, y: 0, duration: 1});
+            notifTl.restart();
+        } else {
+            notifTl.reverse();
+        }
+    }
+
+        let mobileNavbar = document.querySelector('.toggle_menu');
+        let togglemenu = document.querySelectorAll("a")[5].classList;
+
+        let mobileTl = gsap.timeline({});
+
+        gsap.set(".navcontainer", {autoAlpha:0,x: 900});
+
+        mobileNavbar.addEventListener('click', function() {
+            if(!togglemenu.toggle("toggle_func")) {
+                mobileTl.to(".navcontainer", {autoAlpha: 1,x: 0});
+                mobileTl.to(".toggle_bar", {backgroundColor: "black"})
+                mobileTl.to(".top", {transform: "rotate(36deg)", position: "absolute"}, "-=1");
+                mobileTl.to(".middle", {autoAlpha:0}, "-=1");
+                mobileTl.to(".bottom", {transform: "rotate(-36deg)", position: "absolute"}, "-=1");
+                mobileTl.restart();
+            } else {
+                mobileTl.reverse();
+            }
+        });
+        gsap.set(".litem", {x:900});
+        gsap.set(".logo", {autoAlpha: 0});
+
+        let tl = gsap.timeline({duration:1});
+        
+        
+
+        tl.to(".spidermanbox", {x: -900});
+        tl.to(".womenbox", {x: -900});
+        tl.to(".communitybox", {x: -900});
+        
+        tl.to(".logo", {autoAlpha: 1});
 
 if(filename == "loginController.php" || filename == "registerController.php") {
     // Création d'une balise style qui sera utiliser dynamiquement
@@ -25,57 +76,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         let errorAccname;
         let errorAccmail;
         let errorAccpass;
-
-        let error = document.getElementById('notif');
-
-
-        let mobileNavbar = document.querySelector('.toggle_menu');
-        let togglemenu = document.querySelectorAll("a")[5].classList;
-
-        let mobileTl = gsap.timeline({});
-
-        gsap.set(".navcontainer", {autoAlpha:0,x: 900});
-
-        mobileNavbar.addEventListener('click', function() {
-            console.log('test')
-            if(!togglemenu.toggle("toggle_func")) {
-                mobileTl.to(".navcontainer", {autoAlpha: 1,x: 0});
-                mobileTl.to(".toggle_bar", {backgroundColor: "black"})
-                mobileTl.to(".top", {transform: "rotate(36deg)", position: "absolute"}, "-=1");
-                mobileTl.to(".middle", {autoAlpha:0}, "-=1");
-                mobileTl.to(".bottom", {transform: "rotate(-36deg)", position: "absolute"}, "-=1");
-                mobileTl.restart();
-            } else {
-                mobileTl.reverse();
-            }
-        });
-        gsap.set(".litem", {x:900});
-        gsap.set(".logo", {autoAlpha: 0});
-
-        let tl = gsap.timeline({duration:1});
         
-        let editbtn = document.querySelector('.fa-pen')
-
-        tl.to(".spidermanbox", {x: -900});
-        tl.to(".womenbox", {x: -900});
-        tl.to(".communitybox", {x: -900});
-        
-        tl.to(".logo", {autoAlpha: 1});
-
-        let editTl = gsap.timeline({});
-
-        let toggleEdit = document.querySelector('.changelistname').classList;
-        gsap.set(".changelistname", {autoAlpha: 0, y:-900});
-
-        editbtn.addEventListener('click', function() {
-            if(!toggleEdit.toggle('toggleedit')) {
-                editTl.to(".changelistname", {y:0, autoAlpha: 1});
-                editTl.restart();
-            } else {
-                editTl.reverse();
-            }
-            
-        })
 
         // Les deux prochaines fonctions ont nécessiter AJAX car je souhaite vérifier des données php en javascript
         // Deux vérifications ont été faites: La regex et la vérification de donnée déjà existante
@@ -206,6 +207,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         let xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             if(indiceiszero) {
                 if(this.responseText == "Le film est déjà dans la movielist !") {
                     localStorage.setItem("--dynamic-color", "red");
@@ -465,6 +467,22 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     
 } else if(filename == "showlistController.php") {
 
+        let editbtn = document.querySelector('.fa-pen')
+        let editTl = gsap.timeline({});
+
+
+        let toggleEdit = document.querySelector('.changelistname').classList;
+        gsap.set(".changelistname", {autoAlpha: 0, y:-900});
+
+        editbtn.addEventListener('click', function() {
+            if(!toggleEdit.toggle('toggleedit')) {
+                editTl.to(".changelistname", {y:0, autoAlpha: 1});
+                editTl.restart();
+            } else {
+                editTl.reverse();
+            }
+        })
+
     let checkbox = document.getElementById('check');
 
     const getCurrentStatus = () => {
@@ -518,13 +536,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     listname.onkeyup = () => {
         checkexistListName();
     }
-
-    const animationError = () => {
-        gsap.to("#notif", {y: 50, duration: 3, delay: 1});
-        gsap.to("#notif", {opacity: 0, duration: 1, delay: 2});
-    }
-
-    
+    let toggleNotif = document.querySelector('.notif').classList;
 
     submit.addEventListener('click', (e) => {
         if(errorAcclistname === 0) {
@@ -532,15 +544,15 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         } else if(errorAcclistname === 1) {
             e.preventDefault();
             error.innerHTML = "<div class='errormsg'>Un nom de liste doit comporter 4 caractères minimum.</div>"
-            animationError();
+            animationError(toggleNotif);
         } else if(errorAcclistname === 2) {
             e.preventDefault();
             error.innerHTML = "<div class='errormsg'>Ce nom de liste est déjà utiliser.</div>"
-            animationError();
+            animationError(toggleNotif);
         } else {
             e.preventDefault();
             error.innerHTML = "<div class='errormsg'>Veuillez entrer un nom de liste.</div>"
-            animationError();
+            animationError(toggleNotif);
         }
     });
 
@@ -586,41 +598,71 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     }
 
 } else if(filename == "timelineController.php") {
+
+    gsap.set(".commentsection", {x: -300, display: "flex"})
+
     let commentTl = gsap.timeline({});
 
-    let commentBtn = document.querySelector('.comments');
+    let commentBtn = document.querySelectorAll('.comments');
     let toggle = document.querySelector('.tl_card_body').classList;
 
-    let submit = document.querySelector('.submit_btn');
-    let commentaire = document.getElementById('commentaire');
+    let submit = document.querySelectorAll('.submit_btn');
+    let commentaire = document.querySelectorAll('.commentaire');
 
-    commentBtn.addEventListener('click', function(e) {
+    let toggleNotif = document.querySelector('.notif').classList;
+
+    for(let i = 0; i < commentBtn.length; i++) {
+        commentBtn[i].addEventListener('click', function(e) {
+        console.log(commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent);
         e.preventDefault();
         if(!toggle.toggle('togglecomment')) {
             commentTl.to('.buy', {autoAlpha: 0});
             commentTl.to('.tl_card_body', {height: "100%"});
             commentTl.to('.comments', {y: -190}, "<");
             commentTl.to('.movielistname', {x: -150}, "<")
-            commentTl.to('.tl_card_title', {x: -150}, "<");
+            commentTl.to('.tl_card_title', {x: -300}, "<");
             commentTl.to('.form-comment', {display: "flex"})
+            commentTl.to(".commentsection", {display: "flex", x: 0})
             commentTl.restart();
         } else {
             commentTl.reverse();
         }
         
-    });
+        });
+    }
+    
 
-    submit.addEventListener('click', function(e) {
-        if(/[A-Z0-9]{1,}/.test(commentaire.value)) {
-            error.innerHTML = "<div class='successmsg'>Votre message a bien été envoyé.</div>"
-        } else {
+    const sentcommentWithoutRefreshing = (comment,listname,toglenotif) => {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(comment.value);
+                    error.innerHTML = "<div class='successmsg'>Votre commentaire a bien été envoyé.</div>";
+                    clearInput(comment);
+                    animationError(toglenotif);
+                }
+                }
+            xmlhttp.open("GET", "../controllers/indexController.php?message=" + comment.value + "&sentlistnameforcomment=" + listname, true)
+            xmlhttp.send();
+        };
+
+    const clearInput = (input) => {
+        input.value = "";
+    }
+
+    for(let i = 0; i < submit.length; i++) {
+        submit[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        if(/[A-Z]{1,}[0-9]*/gi.test(commentaire[i].value)) {
+            sentcommentWithoutRefreshing(commentaire[i], commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent, toggleNotif);
             e.preventDefault();
-            error.innerHTML = "<div class='errormsg'>Votre message n'as pas été envoyé.</div>"
+        } else {
+            error.innerHTML = "<div class='errormsg'>Votre commentaire n'as pas été envoyé.</div>"
+            animationError(toggleNotif[i].classList);
+            clearInput(commentaire[i]);
         } 
-    })
+        })
+    }
+    
 
 }
-
-    
-
-    
