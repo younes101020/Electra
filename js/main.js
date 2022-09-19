@@ -4,21 +4,17 @@
 let filename = location.pathname.split('/').pop();
 let styleElem = document.head.appendChild(document.createElement("style"));
 
-let error = document.querySelector('.notif');
+const error = document.getElementById('notif');
 let notifTl = gsap.timeline({});
-gsap.set(".notif", {autoAlpha: 0})
+gsap.set("#notif", {autoAlpha: 0})
 
-        import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.esm.browser.min.js'
-
-        const swiper = new Swiper(".mySwiper", {
-            effect: "cards",
-            grabCursor: true,
-            });
+        let toggleNotif = document.getElementById('notif');
 
         const animationError = (toggles) => {
         if(toggles.toggle('togglenotif')) {
-            notifTl.to(".notif", {autoAlpha: 1, y: 50, duration: 2});
-            notifTl.to(".notif", {autoAlpha: 0, y: 0, duration: 1});
+            console.log('reussi')
+            notifTl.to("#notif", {autoAlpha: 1, y: 50, duration: 3});
+            notifTl.to("#notif", {autoAlpha: 0, y: 0, duration: 1});
             notifTl.restart();
         } else {
             notifTl.reverse();
@@ -44,18 +40,6 @@ gsap.set(".notif", {autoAlpha: 0})
                 mobileTl.reverse();
             }
         });
-        gsap.set(".litem", {x:900});
-        gsap.set(".logo", {autoAlpha: 0});
-
-        let tl = gsap.timeline({duration:1});
-        
-        
-
-        tl.to(".spidermanbox", {x: -900});
-        tl.to(".womenbox", {x: -900});
-        tl.to(".communitybox", {x: -900});
-        
-        tl.to(".logo", {autoAlpha: 1});
 
 if(filename == "loginController.php" || filename == "registerController.php") {
     // Création d'une balise style qui sera utiliser dynamiquement
@@ -63,10 +47,6 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         
 
         // element dom de la page inscription
-
-        let errorPass = window.getComputedStyle(document.getElementById('btinput'), '::before');
-        let errorMail = window.getComputedStyle(document.getElementById('bsinput'), '::before');
-        let errorUser = window.getComputedStyle(document.getElementById('bfinput'), '::before');
 
         let firstInput = document.getElementById('finput');
         let mailInput = document.getElementById('sinput');
@@ -470,6 +450,8 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         let editbtn = document.querySelector('.fa-pen')
         let editTl = gsap.timeline({});
 
+        let doRating = document.querySelectorAll('.finished')
+
 
         let toggleEdit = document.querySelector('.changelistname').classList;
         gsap.set(".changelistname", {autoAlpha: 0, y:-900});
@@ -536,7 +518,6 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     listname.onkeyup = () => {
         checkexistListName();
     }
-    let toggleNotif = document.querySelector('.notif').classList;
 
     submit.addEventListener('click', (e) => {
         if(errorAcclistname === 0) {
@@ -592,12 +573,47 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     for(let i = 0; i < removed.length; i++) {
         removed[i].addEventListener("click", (e) => {
                 e.stopPropagation();
+                e.preventDefault();
                 deleteShow(title[i].childNodes[0].childNodes[0].textContent);
-                location.reload();
+                title[i].parentNode.remove();
+        })
+    }
+
+    let ratingToggle = document.querySelectorAll('.finished');
+    let cardTitle = document.querySelectorAll('.card-title');
+    let stars = document.querySelectorAll('.stars');
+
+    gsap.set(".stars", {opacity:0, display:"none", x: 300})
+
+    for(let i = 0; i < doRating.length; i++) {
+        doRating[i].addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if(!ratingToggle[i].classList.toggle("finishedToggle")) {
+                gsap.to(cardTitle[i], {height: "100%"});
+                gsap.to(stars[i], {autoAlpha: 1, display: "flex", x: 0})
+            } else {
+                gsap.to(stars[i], {autoAlpha: 0, display: "none", x: 300})
+                gsap.to(cardTitle[i], {height: "20%"});
+            }
         })
     }
 
 } else if(filename == "timelineController.php") {
+
+    // Cette fonction me sert à supprimer un film spécifique de la movielist de l'utilisateur
+    const deleteShow = (deletingCom) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText)
+        }
+        }
+        xmlhttp.open("GET", "../controllers/indexController.php?deletingcom=" + deletingCom, true)
+        xmlhttp.send();
+    };
+
+    let comremoved = document.querySelectorAll('.comaction');
 
     gsap.set(".commentsection", {x: -300, display: "flex"})
 
@@ -609,11 +625,8 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     let submit = document.querySelectorAll('.submit_btn');
     let commentaire = document.querySelectorAll('.commentaire');
 
-    let toggleNotif = document.querySelector('.notif').classList;
-
     for(let i = 0; i < commentBtn.length; i++) {
         commentBtn[i].addEventListener('click', function(e) {
-        console.log(commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent);
         e.preventDefault();
         if(!toggle.toggle('togglecomment')) {
             commentTl.to('.buy', {autoAlpha: 0});
@@ -630,16 +643,21 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         
         });
     }
+
+    for(let i = 0; i < comremoved.length; i++) {
+        comremoved[i].addEventListener('click', function() {
+            deleteShow(comremoved[i].nextSibling.childNodes[1].textContent);
+            comremoved[i].parentNode.remove();
+        })
+    }
     
 
-    const sentcommentWithoutRefreshing = (comment,listname,toglenotif) => {
+    const sentcommentWithoutRefreshing = (comment,listname,toggleNotifs) => {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                console.log(comment.value);
-                    error.innerHTML = "<div class='successmsg'>Votre commentaire a bien été envoyé.</div>";
                     clearInput(comment);
-                    animationError(toglenotif);
+                    location.reload();
                 }
                 }
             xmlhttp.open("GET", "../controllers/indexController.php?message=" + comment.value + "&sentlistnameforcomment=" + listname, true)
@@ -654,15 +672,73 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         submit[i].addEventListener('click', function(e) {
         e.preventDefault();
         if(/[A-Z]{1,}[0-9]*/gi.test(commentaire[i].value)) {
-            sentcommentWithoutRefreshing(commentaire[i], commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent, toggleNotif);
+            sentcommentWithoutRefreshing(commentaire[i], commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent, toggleNotif.classList);
             e.preventDefault();
         } else {
             error.innerHTML = "<div class='errormsg'>Votre commentaire n'as pas été envoyé.</div>"
-            animationError(toggleNotif[i].classList);
+            animationError(toggleNotif.classList);
             clearInput(commentaire[i]);
         } 
         })
     }
     
 
+} else if(filename == "accountController.php") {
+
+    const passInput = document.getElementById('tinput');
+    const togglePassword = document.querySelector("#togglePassword");
+
+    // Si l'utilisateur clique sur l'icone il verra son mot de passe en clair
+        togglePassword.addEventListener("click", function () {
+            const type = passInput.getAttribute("type") === "password" ? "text" : "password";
+            passInput.setAttribute("type", type);
+
+            this.classList.toggle("eye");
+        });
+
+        let errorAccpass;
+
+        const checkRegexx = (input) => {
+            if(input.getAttribute('type') === "password") {
+                    if(/[A-Z]{1,5}[0-9]{1,5}[^\w\d]{1,5}/i.test(input.value)) {
+                        errorAccpass = 0;
+                        passInput.style.border = "solid 1px #5AFF15";
+                    } else {
+                        errorAccpass = 1;
+                        passInput.style.border = "solid 1px #C42021";
+                    }
+            }
+        }
+        
+        passInput.onkeyup = () => {
+            checkRegexx(passInput);
+        };
+
+        document.getElementById('submitt').addEventListener('click', (e) => {
+            if(errorAccpass === 0) {
+
+            } else {
+                e.preventDefault();
+                let error = document.getElementById('notif');
+                if(passInput.style.border === "") {
+                    error.innerHTML = "<div class='errormsg'>Veuillez entrer un mot de passe</div>";
+                } else {
+                    error.innerHTML = "<div class='errormsg'>Le mot de passe doit comporter 8 caractères minimum (majuscule, minuscule, caractères spécial, nombre)</div>";
+                }
+            }
+        });
+
+} else {
+    gsap.set(".litem", {x:900});
+        gsap.set(".logo", {autoAlpha: 0});
+
+        let tl = gsap.timeline({duration:1});
+        
+        
+
+        tl.to(".spidermanbox", {x: -900});
+        tl.to(".womenbox", {x: -900});
+        tl.to(".communitybox", {x: -900});
+        
+        tl.to(".logo", {autoAlpha: 1});
 }

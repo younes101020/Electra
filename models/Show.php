@@ -8,6 +8,7 @@ class Show extends Database{
     public string $addingshow = '';
     public string $deletingshow = '';
     public string $checkedshow = '';
+    public string $content = '';
     public int $blocked = 0;
     public int $validated = 0;
     public string $commentaire	= '';
@@ -67,9 +68,18 @@ class Show extends Database{
         $queryExecute->execute();
         $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
 
-        $this->listid = $queryResult->id;
+        return json_encode($queryResult);
+    }
+    //Cette fonction permet de récupérer l'id d'une list de film
+    public function getlistidByListName()
+    {
+        $sqlQuery = 'SELECT id FROM `' . DB_PREFIX . 'movielists` WHERE `name` = :listname';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':listname', $this->listname, PDO::PARAM_STR);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
 
-        return json_encode($this->listid);
+        $this->listid = $queryResult->id;
     }
     // Cette fonction permet de récupérer le nom de la liste de l'utilisateur
     public function getListName() {
@@ -246,5 +256,14 @@ class Show extends Database{
         $queryResult = $queryExecute->fetchAll(PDO::FETCH_OBJ);
 
         return $queryResult;
+    }
+    // Cette fonction permet de supprimer un commentaire
+    public function deleteComments() {
+        $sqlQuerys = 'DELETE FROM ' . DB_PREFIX . 'comments WHERE content = :content AND id_users = :id_users';
+        $queryExecutes = $this->db->prepare($sqlQuerys);
+        $queryExecutes->bindValue(':content', $this->content, PDO::PARAM_STR);
+        $queryExecutes->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+
+        $queryExecutes->execute();
     }
 }

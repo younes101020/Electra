@@ -65,27 +65,15 @@ input[type=text], input[type=email] {
   font-family: fantasy;
 }
 
-.notif {
+#notif {
   position: absolute;
   display: flex;
   width: 100%;
   justify-content: center;
   color: white;
   top: 2rem;
-  animation: moove 1s linear 1;
 }
-@keyframes moove {
-  0% {
-    top: 0.1rem;
-  }
-  50% {
-    top: 1rem;
-  }
-  100% {
-    top: 2rem;
-  }
-}
-.notif .errormsg {
+#notif .errormsg {
   font-size: 1.2rem;
   background-color: rgb(255, 0, 0);
   border-radius: 100vw;
@@ -94,7 +82,7 @@ input[type=text], input[type=email] {
   border-right: 0.4rem solid rgb(156, 12, 12);
   border-bottom: 0.4rem solid rgb(156, 12, 12);
 }
-.notif .successmsg {
+#notif .successmsg {
   font-size: 1.2rem;
   background-color: rgb(0, 255, 30);
   border-radius: 100vw;
@@ -1987,11 +1975,21 @@ input[type=text], input[type=email] {
   bottom: 0rem;
   padding: 0.3rem 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 .container .card .card-title h1 {
   background-color: #000000;
   font-weight: 100;
+}
+.container .card .card-title .stars {
+  font-size: 2rem;
+  color: #000;
+  height: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .swiper {
@@ -2039,11 +2037,21 @@ input[type=text], input[type=email] {
   flex-direction: column;
   gap: 0.5rem;
   height: 65%;
+  box-sizing: border-box;
+  overflow-y: scroll;
   width: 90%;
-  padding: 3.5rem 0.5rem;
+  margin: 3.5rem 0.5rem;
   color: #F1D302;
   font-size: 1.2rem;
   font-weight: 100;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .commentsection .commentary {
+  display: flex;
+  gap: 0.5rem;
+}
+.swiper .swiper-slide:nth-child(1n) .tl_card_body .commentsection .commentary .comaction {
+  cursor: pointer;
+  color: #C42021;
 }
 .swiper .swiper-slide:nth-child(1n) .tl_card_body .form-comment {
   display: none;

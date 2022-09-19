@@ -4,21 +4,20 @@
     <?php if(Session::getInstance()->hasFlashes()): ?>
             <?php foreach(Session::getInstance()->getFlashes() as $key => $message): ?>
                 <?php if($key == 'error'): ?>
-                    <div class="notif">
+                    <div id="notif">
                         <p class="errormsg"> <?= $message; ?> </p>
                     </div>
                 <?php else: ?>
-                    <div class="notif">
+                    <div id="notif">
                         <p class="successmsg"> <?= $message; ?> </p>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
-
     <div class="ocontainer">
         <div class="bg-form">
             <img class="login-logo" src="../img/logo_signe.svg" alt="Logo d'Electra">
-                <form action="accountController.php" method="POST">
+                <form action="../controllers/accountController.php" method="POST">
                     <div id="btinput">
                         <input id="tinput" type="password" name="password" placeholder="votre nouveau mot de passe">
                         <i class="fa-solid fa-arrows-to-eye eye" id="togglePassword"></i>
@@ -30,6 +29,7 @@
         </div>
     </div>
     
-    <script src="../js/account.js"></script>
+    <?php include_once '../inc/footer.php'; ?>
+
 </body>
 </html>

@@ -24,6 +24,8 @@
             var_dump($user);
         }
     }
+
+    $style = 'style="overflow-y: hidden;"';
     $title = "Connexion - Electra";
     require_once '../inc/header.php';
     require_once '../views/login.php';

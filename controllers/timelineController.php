@@ -8,7 +8,9 @@
 
     $publicshowlists = $show->getPublicShowlist();
     $commentsarr = $show->getComments();
+    $currentUsername = $auth->user();
 
+    $style = 'style="overflow-y: hidden;"';
     $title = "Timeline - Electra";
     include_once '../inc/header.php';
     include_once '../views/timeline.php';

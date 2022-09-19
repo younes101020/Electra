@@ -9,27 +9,15 @@
     // Et enfin mettre à jour son champs sql password avec son nouveau mot de passe
     if(isset($_POST['submit'])){
         $auth = App::getAuth();
-        $auth->id = $auth->user();
+        $auth->id = $auth->user()->id;
         $auth->password = $auth->hashPassword($_POST['password']);
         $auth->updatePassword();
         Session::getInstance()->setFlash('success', "Votre mot de passe a bien été mis à jour");
     }
 
 
+    $style = NULL;
     $title = "Mon compte - Electra";
     include_once '../inc/header.php';
     include_once '../inc/header_account.php';
     include_once '../views/account.php';
-    if(Session::getInstance()->hasFlashes()) {
-        foreach(Session::getInstance()->getFlashes() as $key => $message) {
-            if($key == 'error') {
-                echo "<div class='notif'>
-                        <p class='errormsg'> <?= $message; ?> </p>
-                     </div>";
-            } else {
-                echo "<div class='notif'>;
-                    <p class='successmsg'> <?= $message; ?> </p>
-                </div>";
-            }
-        }
-    }

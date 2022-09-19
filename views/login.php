@@ -2,11 +2,11 @@
 <?php if(Session::getInstance()->hasFlashes()): ?>
             <?php foreach(Session::getInstance()->getFlashes() as $key => $message): ?>
                 <?php if($key == 'error'): ?>
-                    <div class="notif">
+                    <div id="notif">
                         <p class="errormsg"> <?= $message; ?> </p>
                     </div>
                 <?php else: ?>
-                    <div class="notif">
+                    <div id="notif">
                         <p class="successmsg"> <?= $message; ?> </p>
                     </div>
                 <?php endif; ?>

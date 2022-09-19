@@ -79,7 +79,12 @@
         $show->listname = $_GET['sentlistnameforcomment'];
         $show->commentaire = $_GET['message'];
 
-        $show->getlistByListName();
+        $show->getlistidByListName();
 
         $show->setComment();
+    } else if(isset($_GET['deletingcom'])) {
+
+        $show->content = $_GET['deletingcom'];
+        $show->deleteComments();
+
     }

@@ -2,7 +2,8 @@
     <?php include_once '../inc/header_account.php'; ?>
 
         <main>
-          <div class="notif togglenotif"></div>
+            <?php var_dump($currentUsername->username); ?>
+          <div id="notif" class="togglenotif"></div>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <?php foreach($publicshowlists as $val): ?>
@@ -16,7 +17,7 @@
                             <div class="commentsection">
                                 <?php foreach($commentsarr as $comment): ?>
                                     <?php if($comment->mlid == $val->mlid): ?>
-                                        <div><?= $comment->pseudonyme ?> : <i><?= $comment->content ?></i></div>
+                                        <div class="commentary"><?php if($currentUsername->username == $comment->pseudonyme): ?><div class="comaction"><i class="fa-solid fa-xmark"></i></div><?php endif; ?><div class="comcontent"><?= $comment->pseudonyme ?> : <span class="siblingcontent"><i><?= $comment->content ?></i></span></div></div>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
@@ -42,7 +43,12 @@
         </main>
 
     <?php include_once '../inc/footer.php'; ?>
-        <script type="module" src="../js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <script>
+            const swiper = new Swiper(".mySwiper", {
+            effect: "cards",
+            });
+        </script>
           
 </script>
     </body>
