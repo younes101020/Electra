@@ -38,7 +38,7 @@
         
     }
     
-
+    $style = NULL;
     $title = "Ma showlist - Electra";
     include_once '../inc/header.php';
     include_once '../views/showlist.php';

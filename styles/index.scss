@@ -177,6 +177,7 @@ body {
             font-size: 1.5rem;
             color: $color-text;
             gap: .1rem;
+            
         }
         .resume_btn {
             cursor: pointer;
@@ -213,7 +214,8 @@ input[type=text], input[type=email] {
 }
 
 #notif {
-    position: absolute;
+    position: sticky;
+    z-index: 9999;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -1323,6 +1325,13 @@ input[type=text], input[type=email] {
             h1 {
                 background-color: #000000;
                 font-weight: 100;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .ratingmsg {
+                display: none;
             }
             position: absolute;
             background-color: #F1D302;
@@ -1336,12 +1345,37 @@ input[type=text], input[type=email] {
             flex-direction: column;
             text-align: center;
             .stars {
+                position: absolute;
                 font-size: 2rem;
                 color: #000;
-                height: 45%;
+                left: 12%;
+                height: 90%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                &:hover label {
+                    color: #000000;
+                }
+                & label span {
+                    .fa-star {
+                    cursor: pointer;
+                    font-weight: 700;
+                    }
+                }
+                & label,
+                & label:hover ~ label { 
+                color: rgba(0, 0, 0, 0.5);
+                }
+                & input[type="radio"] {
+                    height: 0;
+                    left: 0;
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    top: 0;
+                    width: 0;
+                }
+
             }
           }
       }

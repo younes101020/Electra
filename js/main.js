@@ -1,20 +1,21 @@
 // Permet de déterminer quel page html execute le script afin de partitionner chaque bout de code
 // avec la page html qui lui correspond ce qui me permettra de ne pas recréer un fichier javascript
 // pour chaque page html
-let filename = location.pathname.split('/').pop();
-let styleElem = document.head.appendChild(document.createElement("style"));
+        let filename = location.pathname.split('/').pop();
+        let styleElem = document.head.appendChild(document.createElement("style"));
 
-const error = document.getElementById('notif');
-let notifTl = gsap.timeline({});
-gsap.set("#notif", {autoAlpha: 0})
+        const error = document.getElementById('notif');
+        let toggleError = document.querySelector('.notif').classList;
+        let notifTl = gsap.timeline({});
+        gsap.set("#notif", {autoAlpha: 0})
 
-        let toggleNotif = document.getElementById('notif');
+        let toggleNotif = document.querySelector('.notif');
 
         const animationError = (toggles) => {
+        
         if(toggles.toggle('togglenotif')) {
-            console.log('reussi')
-            notifTl.to("#notif", {autoAlpha: 1, y: 50, duration: 3});
-            notifTl.to("#notif", {autoAlpha: 0, y: 0, duration: 1});
+            notifTl.to(".notif", {autoAlpha: 1, y: 50});
+            notifTl.to(".notif", {autoAlpha: 0, y: 0, duration: 1}, "+=2");
             notifTl.restart();
         } else {
             notifTl.reverse();
@@ -447,6 +448,10 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     
 } else if(filename == "showlistController.php") {
 
+
+        gsap.set(".ratingmsg", {display: "none", opacity: 0});
+        let ratingMsg = document.querySelectorAll('.ratingmsg');
+
         let editbtn = document.querySelector('.fa-pen')
         let editTl = gsap.timeline({});
 
@@ -582,22 +587,59 @@ if(filename == "loginController.php" || filename == "registerController.php") {
     let ratingToggle = document.querySelectorAll('.finished');
     let cardTitle = document.querySelectorAll('.card-title');
     let stars = document.querySelectorAll('.stars');
+    let moviename = document.querySelectorAll('.moviename');
 
-    gsap.set(".stars", {opacity:0, display:"none", x: 300})
+    gsap.set(".stars", {autoAlpha: 0, x: 300})
 
     for(let i = 0; i < doRating.length; i++) {
         doRating[i].addEventListener("click", function(e) {
             e.preventDefault();
             e.stopPropagation();
             if(!ratingToggle[i].classList.toggle("finishedToggle")) {
+                gsap.to(stars[i], {autoAlpha: 1, x: 0});
+                gsap.to(moviename[i], {autoAlpha: 0, display: "none"});
+                gsap.to(ratingMsg[i], {display: "block", autoAlpha: 1}, "+=.2");
                 gsap.to(cardTitle[i], {height: "100%"});
-                gsap.to(stars[i], {autoAlpha: 1, display: "flex", x: 0})
             } else {
-                gsap.to(stars[i], {autoAlpha: 0, display: "none", x: 300})
                 gsap.to(cardTitle[i], {height: "20%"});
+                gsap.to(ratingMsg[i], {autoAlpha: 0, display: "none"});
+                gsap.to(moviename[i], {display: "block", autoAlpha: 1}, "+=.2");
+                gsap.to(stars[i], {autoAlpha: 0, x: 300});
             }
         })
     }
+
+    const ratingShow = (rating, show) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+                if(this.responseText == "Vous avez déjà noté ce film") {
+                    error.innerHTML = "<div class='successmsg'>Merci, la note a bien été mis à jour.</div>";
+                    animationError(toggleError);
+                } else {
+                    error.innerHTML = "<div class='successmsg'>Merci, la note a bien été prise en compte.</div>";
+                    animationError(toggleError);
+                }
+        }
+        }
+        xmlhttp.open("GET", "../controllers/indexController.php?rating=" + rating + "&showname=" + show, true)
+        xmlhttp.send();
+    };
+
+    
+
+    const ratings = document.querySelectorAll('.star');
+
+    for (let i = 0; i < ratings.length; i++) {
+        ratings[i].addEventListener('click', function() {                
+                let rating = ratings[i].parentNode.parentNode.getAttribute('for');
+                let movieRating = ratings[i].parentNode.parentNode.parentNode.parentNode.firstChild.firstChild.textContent;
+                ratingShow(parseInt(rating.charAt(rating.length - 1)), movieRating);
+                deleteShow(movieRating);
+                ratings[i].parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+            })
+    }
+
 
 } else if(filename == "timelineController.php") {
 

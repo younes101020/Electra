@@ -9,6 +9,7 @@
 
     $showid = 1;
 
+    $style = NULL;
     $title = "Film - Electra";
     include '../inc/header.php';
     include '../views/accueil.php';

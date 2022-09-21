@@ -3,7 +3,7 @@
 
         <main>
             <?php var_dump($currentUsername->username); ?>
-          <div id="notif" class="togglenotif"></div>
+          <div id="notif" class="notif"></div>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <?php foreach($publicshowlists as $val): ?>

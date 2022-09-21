@@ -16,6 +16,7 @@ class Show extends Database{
     public int $listid = 0;
     public int $listcontentid = 0;
     public int $note = 0;
+    public int $notationid = 0;
     protected $db;
 
     // 0 == false , 1 == true
@@ -265,5 +266,52 @@ class Show extends Database{
         $queryExecutes->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
 
         $queryExecutes->execute();
+    }
+    // Cette fonction permet de récuperer une id de film à partir d'un nom de film
+    public function getShowIdByName() {
+        $sqlQuery = 'SELECT id FROM ' . DB_PREFIX .'movies WHERE TRIM(name) = :name';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':name', $this->showname, PDO::PARAM_STR);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
+
+        $this->showid = $queryResult->id;
+    }
+    // Cette fonction permet de vérifier si l'utilisateur a déjà noter ce film
+    public function checkIfUserRated() {
+        $sqlQuery = 'SELECT id FROM ' . DB_PREFIX .'notations WHERE id_movies = :id_movies AND id_users = :id_users';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->bindValue(':id_movies', $this->showid, PDO::PARAM_INT);
+        $queryExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetch(PDO::FETCH_OBJ);
+
+        if(!isset($queryResult->id)) {
+            $this->notationid = 0;
+        } else {
+            $this->notationid = $queryResult->id;
+        }
+    }
+    //  Cette fonction permet de noter un film
+    public function ratingShow() {
+        $sqlQuery = 'INSERT INTO `' . DB_PREFIX . 'notations`(`notation`, `id_movies`, `id_users`)
+        VALUES (:notation, :id_movies, :id_users)';
+
+        $queryExecute = $this->db->prepare($sqlQuery);
+
+        $queryExecute->bindValue(':notation', $this->note, PDO::PARAM_INT);
+        $queryExecute->bindValue(':id_movies', $this->showid, PDO::PARAM_INT);
+        $queryExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+
+        return $queryExecute->execute();
+    }
+    // Cette fonction permet de mettre à jour la note de l'utilisateur sur un film
+    public function updateUserRating() {
+        $sqlReset = 'UPDATE '. DB_PREFIX .'notations SET notation = :notation WHERE id_movies = :id_movies AND id_users = :id_users';
+        $resetExecute = $this->db->prepare($sqlReset);
+        $resetExecute->bindValue(':notation', $this->note, PDO::PARAM_INT);
+        $resetExecute->bindValue(':id_movies', $this->showid, PDO::PARAM_INT);
+        $resetExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
+        $resetExecute->execute();
     }
 }

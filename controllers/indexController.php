@@ -87,4 +87,21 @@
         $show->content = $_GET['deletingcom'];
         $show->deleteComments();
 
+    } else if(isset($_GET['rating']) && isset($_GET['showname'])) {
+
+        $show->note = $_GET['rating'];
+        $show->showname = $_GET['showname'];
+
+        $show->getShowIdByName();
+        $show->checkIfUserRated();
+
+        if($show->notationid == 0) {
+            $show->ratingShow();
+            echo "Vous n'avez pas noté ce film";
+        } else {
+            $show->updateUserRating();
+            echo "Vous avez déjà noté ce film";
+        }
+        
+        
     }

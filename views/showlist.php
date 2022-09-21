@@ -1,7 +1,7 @@
     <body class="forced_no_overflow">
     <?php require_once '../inc/header_account.php'; ?>
         <main>
-            <div class="notif togglenotif" id="notif"></div>
+            <div class="notif" id="notif"></div>
             <div class="title">
                 <h1><?= calllistName(); ?> <i class="fa-solid fa-pen"></i></h1>
                 <div class="changelistname toggleedit">
@@ -29,7 +29,34 @@
                         <a class="call-to-action" target="_BLANK" href="<?= $val->buy; ?>"><i class="fa-solid fa-cart-shopping"></i></a>
                         <a class="call-to-action finishedToggle finished" href="#"><i class="fa-solid fa-check"></i></a>
                         </div>
-                        <div class="card-title"><h1><i><?= $val->name; ?></i></h1><div class="stars"><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></div></div>
+                        <div class="card-title"><h1><i class="moviename"><?= $val->name; ?></i><i class="ratingmsg">Quelle note lui mettriez-vous ?</i></h1>
+                        <div class="stars">
+                            <input type="radio" name="star" id="star-1" value="1"/>
+                            <label for="star-1">
+                            <span><i class="fa-solid fa-star star"></i></span>
+                            </label>
+
+                            <input type="radio" name="star" id="star-2" value="2"/>
+                            <label for="star-2">
+                            <span><i class="fa-solid fa-star star"></i></span>
+                            </label>
+
+                            <input type="radio" name="star" id="star-3" value="3"/> 
+                            <label for="star-3">
+                            <span><i class="fa-solid fa-star star"></i></span>
+                            </label>
+
+                            <input type="radio" name="star" id="star-4" value="4"/>
+                            <label for="star-4">
+                            <span><i class="fa-solid fa-star star"></i></span>
+                            </label>
+
+                            <input type="radio" name="star" id="star-5" value="5"/>
+                            <label for="star-5">
+                            <span><i class="fa-solid fa-star star"></i></span>
+                            </label>
+                        </div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
