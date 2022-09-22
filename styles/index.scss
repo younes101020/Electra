@@ -175,7 +175,7 @@ body {
             width: 100%;
             display: flex;
             font-size: 1.5rem;
-            color: $color-text;
+            color: rgba(0,0,0,0.5);
             gap: .1rem;
             
         }
@@ -771,7 +771,7 @@ input[type=text], input[type=email] {
                             width: 100%;
                             display: flex;
                             font-size: 2rem;
-                            color: $color-text;
+                            color: rgba(0,0,0,0.5);
                             gap: .3rem;
                         }
                         .top_resume_btn {
@@ -843,7 +843,7 @@ input[type=text], input[type=email] {
                         width: 100%;
                         display: flex;
                         font-size: 2rem;
-                        color: $color-text;
+                        color: rgba(0,0,0,0.5);
                         gap: .3rem;
                     }
                     .top_resume_btn {
@@ -960,7 +960,7 @@ input[type=text], input[type=email] {
                             width: 100%;
                             display: flex;
                             font-size: 2rem;
-                            color: $color-text;
+                            color: rgba(0, 0, 0, 0.5);
                             gap: .3rem;
                         }
                         .top_resume_btn {
@@ -1103,7 +1103,7 @@ input[type=text], input[type=email] {
                 width: 100%;
                 display: flex;
                 font-size: 1.5rem;
-                color: $color-text;
+                color: rgba(0,0,0,0.5);
                 gap: .1rem;
             }
             .resume_btn {

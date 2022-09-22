@@ -29,7 +29,7 @@ class Show extends Database{
     }
     // Cette fonction renvoi un tableau de tous les films stocker en db dans l'ordre suivant: du film le plus récent au plus anciens.
     public function showRetrieve(){
-        $sqlQuerys = 'SELECT name, id_genres, image, synopsis, buy FROM '. DB_PREFIX .'movies';
+        $sqlQuerys = 'SELECT name, id_genres, image, synopsis, buy, id FROM '. DB_PREFIX .'movies';
         $queryExecute = $this->db->prepare($sqlQuerys);
         $queryExecute->execute();
         $shows = $queryExecute->fetchAll(PDO::FETCH_OBJ);
@@ -313,5 +313,17 @@ class Show extends Database{
         $resetExecute->bindValue(':id_movies', $this->showid, PDO::PARAM_INT);
         $resetExecute->bindValue(':id_users', $this->session->read('auth')->id, PDO::PARAM_INT);
         $resetExecute->execute();
+    }
+    // Cette fonction permet de récupérer toutes les moyennes de films
+    public function getAverage() {
+        $sqlQuery = 'SELECT mov.name, floor(Avg(note.notation)) AS average
+            From ' . DB_PREFIX .'notations AS note 
+            INNER JOIN ' . DB_PREFIX .'movies AS mov On mov.id = note.id_movies
+            GROUP BY note.id_movies;';
+        $queryExecute = $this->db->prepare($sqlQuery);
+        $queryExecute->execute();
+        $queryResult = $queryExecute->fetchAll(PDO::FETCH_OBJ);
+
+        return $queryResult;
     }
 }

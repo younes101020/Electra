@@ -2,7 +2,6 @@
     <?php include_once '../inc/header_account.php'; ?>
 
         <main>
-            <?php var_dump($currentUsername->username); ?>
           <div id="notif" class="notif"></div>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">

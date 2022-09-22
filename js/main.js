@@ -183,6 +183,18 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             })
 } else if(filename == "showController.php") {
 
+    const getRating = (showname) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            }
+        }
+
+        xmlhttp.open("GET", "../controllers/indexController.php?checkedshow=" + showname, true)
+        xmlhttp.send();
+    };
+
     // Cette fonction vérifie l'état visuel des like sur les movielist
     const checkshowinListsync = (checkedshow, indiceiszero, indice) => {
         let xmlhttp = new XMLHttpRequest();

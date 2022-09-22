@@ -694,7 +694,7 @@ input[type=text], input[type=email] {
   width: 100%;
   display: flex;
   font-size: 2rem;
-  color: #F1D302;
+  color: rgba(0, 0, 0, 0.5);
   gap: 0.3rem;
 }
 #vertical_display #show #top_show .top_showcard-content .top_resume_btn {
@@ -780,7 +780,7 @@ input[type=text], input[type=email] {
   width: 100%;
   display: flex;
   font-size: 2rem;
-  color: #F1D302;
+  color: rgba(0, 0, 0, 0.5);
   gap: 0.3rem;
 }
 #vertical_display #show #top_show .top_showcard-content .top_resume_btn {
@@ -1098,7 +1098,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 2rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.3rem;
   }
   #vertical_display #show #top_show .top_showcard-content .top_resume_btn {
@@ -1158,7 +1158,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_1 .showcard-content .resume_btn {
@@ -1218,7 +1218,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_2 .showcard-content .resume_btn {
@@ -1273,7 +1273,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_3 .showcard-content .resume_btn {
@@ -1328,7 +1328,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_4 .showcard-content .resume_btn {
@@ -1383,7 +1383,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_5 .showcard-content .resume_btn {
@@ -1438,7 +1438,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_6 .showcard-content .resume_btn {
@@ -1493,7 +1493,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_7 .showcard-content .resume_btn {
@@ -1548,7 +1548,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_8 .showcard-content .resume_btn {
@@ -1603,7 +1603,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_9 .showcard-content .resume_btn {
@@ -1658,7 +1658,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_10 .showcard-content .resume_btn {
@@ -1713,7 +1713,7 @@ input[type=text], input[type=email] {
     width: 100%;
     display: flex;
     font-size: 1.5rem;
-    color: #F1D302;
+    color: rgba(0, 0, 0, 0.5);
     gap: 0.1rem;
   }
   #vertical_display #show #show_11 .showcard-content .resume_btn {
@@ -1761,7 +1761,7 @@ input[type=text], input[type=email] {
   width: 100%;
   display: flex;
   font-size: 1.5rem;
-  color: #F1D302;
+  color: rgba(0, 0, 0, 0.5);
   gap: 0.1rem;
 }
 #vertical_display .showcard-content .resume_btn {

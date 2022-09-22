@@ -9,7 +9,7 @@
         </div>
         <!-- Affichage des films -->
         <div id="show">
-            
+
         <?php for($i = 0; $i < 12; $i++): ?>
             <?php if($i == 0): ?>
                 <div id="top_show" class="like_scope" style="background-image: url(<?= $shows[$i]->image; ?>); background-size: cover; background-position: center;">
