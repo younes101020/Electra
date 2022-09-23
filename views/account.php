@@ -14,12 +14,16 @@
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
-    <div class="ocontainer">
+        <div class="notif" id="notif"></div>
+    <div class="ocontainer" id="onlineocontainer">
         <div class="bg-form">
             <img class="login-logo" src="../img/logo_signe.svg" alt="Logo d'Electra">
                 <form action="../controllers/accountController.php" method="POST">
+                    <div id="bfinput">
+                        <input id="finput" type="text" name="pseudonyme" placeholder="votre nouveau pseudonyme">
+                    </div>
                     <div id="btinput">
-                        <input id="tinput" type="password" name="password" placeholder="votre nouveau mot de passe">
+                        <input id="tinput" type="password" name="newPassword" placeholder="votre nouveau mot de passe">
                         <i class="fa-solid fa-arrows-to-eye eye" id="togglePassword"></i>
                     </div>
                     <div class="check">

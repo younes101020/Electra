@@ -7,12 +7,16 @@
     // Egalement hasher son nouveau mot de passe pour pouvoir l'envoyer dans sa row sql
     //Initialiser une connexion à la db
     // Et enfin mettre à jour son champs sql password avec son nouveau mot de passe
-    if(isset($_POST['submit'])){
-        $auth = App::getAuth();
+    $auth = App::getAuth();
+    if(!empty($_POST['newPassword'])){
         $auth->id = $auth->user()->id;
-        $auth->password = $auth->hashPassword($_POST['password']);
+        $auth->password = $auth->hashPassword($_POST['newPassword']);
         $auth->updatePassword();
         Session::getInstance()->setFlash('success', "Votre mot de passe a bien été mis à jour");
+    } else if(!empty($_POST['pseudonyme'])) {
+        $auth->username = $_POST['pseudonyme'];
+        $auth->updateUsername();
+        Session::getInstance()->setFlash('success', "Votre pseudonyme a bien été mis à jour");
     }
 
 

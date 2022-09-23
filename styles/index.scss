@@ -265,6 +265,10 @@ input[type=text], input[type=email] {
     }
 }
 
+#submitt {
+    font-size: 1.5rem !important;
+}
+
 .btn-sub {
     font-size: 1em;
     font-family: 'Bebas Neue', cursive;
@@ -387,6 +391,11 @@ input[type=text], input[type=email] {
 }
 
 /* Page d'inscription & Page de connexion */
+
+#onlineocontainer {
+    height: 80%;
+    align-items: inherit;
+}
 
 .ocontainer {
     position: relative;
@@ -1184,6 +1193,7 @@ input[type=text], input[type=email] {
     .changelistname {
         display: flex;
         justify-content: center;
+        height: 0;
             form {
                 padding: 0 0 2rem 0;
                 position: relative;
@@ -1232,6 +1242,7 @@ input[type=text], input[type=email] {
         font-size: 3rem;
         color: $color-text;
         font-style: italic;
+        margin-bottom: inherit;
         .fa-pen {
             font-size: .7em;
             cursor: pointer;

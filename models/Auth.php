@@ -166,6 +166,15 @@ class auth extends Database
         return false;
     }
 
+    // Cette fonction permet de modifier le nom d'utilisateur
+    public function updateUsername() {
+            $sqlQuery = 'UPDATE '. DB_PREFIX .'users SET username = :username WHERE id = :id';
+            $queryExecute = $this->db->prepare($sqlQuery);
+            $queryExecute->bindValue(':username', $this->username, PDO::PARAM_STR);
+            $queryExecute->bindValue(':id', $this->session->read('auth')->id, PDO::PARAM_INT);
+            $queryExecute->execute();
+    }
+
     // Cette fonction nous servira de "verrou" pour les pages nécéssitant dêtre connecté à electra
     public function restrict(){
         if(!$this->session->read('auth')) {

@@ -49,7 +49,6 @@ if(filename == "loginController.php" || filename == "registerController.php") {
 
         // element dom de la page inscription
 
-        let firstInput = document.getElementById('finput');
         let mailInput = document.getElementById('sinput');
         let passInput = document.getElementById('tinput');
 
@@ -61,29 +60,6 @@ if(filename == "loginController.php" || filename == "registerController.php") {
 
         // Les deux prochaines fonctions ont nécessiter AJAX car je souhaite vérifier des données php en javascript
         // Deux vérifications ont été faites: La regex et la vérification de donnée déjà existante
-
-        const checkexistName = () => {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                            if(this.responseText != "false") {
-                                errorAccname = 1;
-                                firstInput.style.border = "solid 1px #C42021";
-                                styleElem.innerHTML += '#bfinput::before {position: absolute; font-family: FontAwesome; content: "\\f06a"; color: #E20203; font-size: 1.5rem; top: 0.45rem; right: .6rem;}'
-                            } else if(!/^[A-Za-z]{5,10}.{0,4}$/.test(firstInput.value)) {
-                                errorAccname = 1;
-                                firstInput.style.border = "solid 1px #E20203";
-                                styleElem.innerHTML += '#bfinput::before {position: absolute; font-family: FontAwesome; content: "\\f06a"; color: #C42021; font-size: 1.5rem; top: 0.45rem; right: .6rem;}'
-                            } else {
-                                errorAccname = 0;
-                                firstInput.style.border = "solid 1px #5AFF15";
-                                styleElem.innerHTML += '#bfinput::before {position: absolute; font-family: FontAwesome; content: "\\f058"; color: #5AFF15; font-size: 1.5rem; top: 0.45rem; right: .6rem;}'
-                            }
-                        }
-                        }
-                    xmlhttp.open("GET", "../controllers/indexController.php?pseudonyme=" + firstInput.value, true)
-                    xmlhttp.send();
-                };
 
                 const checkexistMail = () => {
                     var xmlhttp = new XMLHttpRequest();
@@ -475,7 +451,7 @@ if(filename == "loginController.php" || filename == "registerController.php") {
 
         editbtn.addEventListener('click', function() {
             if(!toggleEdit.toggle('toggleedit')) {
-                editTl.to(".changelistname", {y:0, autoAlpha: 1});
+                editTl.to(".changelistname", {y:80, autoAlpha: 1});
                 editTl.restart();
             } else {
                 editTl.reverse();
@@ -739,6 +715,38 @@ if(filename == "loginController.php" || filename == "registerController.php") {
 
 } else if(filename == "accountController.php") {
 
+    let errorAccname;
+    let errorAccpass;
+
+    let firstInput = document.getElementById('finput');
+
+    const checkexistName = () => {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText != "false") {
+                        errorAccname = 1;
+                        firstInput.style.border = "solid 1px #C42021";
+                        styleElem.innerHTML += '#bfinput::before {position: absolute; font-family: FontAwesome; content: "\\f06a"; color: #E20203; font-size: 1.5rem; top: 0.45rem; right: .6rem;}'
+                    } else if(!/^[A-Za-z]{5,10}.{0,4}$/.test(firstInput.value)) {
+                        errorAccname = 1;
+                        firstInput.style.border = "solid 1px #E20203";
+                        styleElem.innerHTML += '#bfinput::before {position: absolute; font-family: FontAwesome; content: "\\f06a"; color: #C42021; font-size: 1.5rem; top: 0.45rem; right: .6rem;}'
+                    } else {
+                        errorAccname = 0;
+                        firstInput.style.border = "solid 1px #5AFF15";
+                        styleElem.innerHTML += '#bfinput::before {position: absolute; font-family: FontAwesome; content: "\\f058"; color: #5AFF15; font-size: 1.5rem; top: 0.45rem; right: .6rem;}'
+                    }
+                }
+                }
+            xmlhttp.open("GET", "../controllers/indexController.php?pseudonyme=" + firstInput.value, true)
+            xmlhttp.send();
+        };
+
+        firstInput.onkeyup = () => {
+            checkexistName();
+        }
+
     const passInput = document.getElementById('tinput');
     const togglePassword = document.querySelector("#togglePassword");
 
@@ -750,11 +758,12 @@ if(filename == "loginController.php" || filename == "registerController.php") {
             this.classList.toggle("eye");
         });
 
-        let errorAccpass;
+        
 
         const checkRegexx = (input) => {
             if(input.getAttribute('type') === "password") {
-                    if(/[A-Z]{1,5}[0-9]{1,5}[^\w\d]{1,5}/i.test(input.value)) {
+                console.log(input.value)
+                    if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm.test(input.value)) {
                         errorAccpass = 0;
                         passInput.style.border = "solid 1px #5AFF15";
                     } else {
@@ -769,17 +778,12 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         };
 
         document.getElementById('submitt').addEventListener('click', (e) => {
-            if(errorAccpass === 0) {
+            if(errorAccpass === 0 || errorAccname === 0) {
 
             } else {
-                e.preventDefault();
-                let error = document.getElementById('notif');
-                if(passInput.style.border === "") {
-                    error.innerHTML = "<div class='errormsg'>Veuillez entrer un mot de passe</div>";
-                } else {
-                    error.innerHTML = "<div class='errormsg'>Le mot de passe doit comporter 8 caractères minimum (majuscule, minuscule, caractères spécial, nombre)</div>";
-                }
-            }
+              e.preventDefault();
+              error.innerHTML = "<div class='errormsg'>Veuillez remplir correctement les champs voulu.</div>";  
+            } 
         });
 
 } else {
