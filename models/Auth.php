@@ -84,7 +84,7 @@ class auth extends Database
     }
 
     public function hashPassword(){
-        return password_hash($this->username, PASSWORD_BCRYPT);
+        return password_hash($this->password, PASSWORD_BCRYPT);
      }
 
     public function countNumberOfUserByUsername()

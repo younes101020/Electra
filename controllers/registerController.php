@@ -22,6 +22,7 @@
         exit();
     }
 
+    $style = 'style="overflow-y: hidden;"';
     $title = "Inscription - Electra";
     include_once '../inc/header.php';
     include_once '../views/register.php';

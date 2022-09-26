@@ -10,7 +10,7 @@
     $auth = App::getAuth();
     if(!empty($_POST['newPassword'])){
         $auth->id = $auth->user()->id;
-        $auth->password = $auth->hashPassword($_POST['newPassword']);
+        $auth->password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
         $auth->updatePassword();
         Session::getInstance()->setFlash('success', "Votre mot de passe a bien été mis à jour");
     } else if(!empty($_POST['pseudonyme'])) {

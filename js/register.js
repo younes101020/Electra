@@ -1,5 +1,6 @@
 let styleElem = document.head.appendChild(document.createElement("style"));
 
+
         // element dom de la page inscription
 
         let errorPass = window.getComputedStyle(document.getElementById('btinput'), '::before');

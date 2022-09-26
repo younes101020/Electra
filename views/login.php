@@ -1,4 +1,5 @@
 
+<body>
 <?php if(Session::getInstance()->hasFlashes()): ?>
             <?php foreach(Session::getInstance()->getFlashes() as $key => $message): ?>
                 <?php if($key == 'error'): ?>
