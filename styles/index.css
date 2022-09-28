@@ -65,7 +65,7 @@ input[type=text], input[type=email] {
   font-family: fantasy;
 }
 
-#notif {
+#notif, #phpnotif {
   position: absolute;
   z-index: 9999;
   display: flex;
@@ -74,7 +74,7 @@ input[type=text], input[type=email] {
   color: white;
   top: 2rem;
 }
-#notif .errormsg {
+#notif .errormsg, #phpnotif .errormsg {
   font-size: 1.2rem;
   background-color: rgb(255, 0, 0);
   border-radius: 100vw;
@@ -83,7 +83,7 @@ input[type=text], input[type=email] {
   border-right: 0.4rem solid rgb(156, 12, 12);
   border-bottom: 0.4rem solid rgb(156, 12, 12);
 }
-#notif .successmsg {
+#notif .successmsg, #phpnotif .successmsg {
   font-size: 1.2rem;
   background-color: rgb(0, 255, 30);
   border-radius: 100vw;

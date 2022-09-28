@@ -4,17 +4,18 @@
     <?php if(Session::getInstance()->hasFlashes()): ?>
             <?php foreach(Session::getInstance()->getFlashes() as $key => $message): ?>
                 <?php if($key == 'error'): ?>
-                    <div id="notif">
+                    <div id="phpnotif">
                         <p class="errormsg"> <?= $message; ?> </p>
                     </div>
                 <?php else: ?>
-                    <div id="notif">
+                    <div id="phpnotif">
                         <p class="successmsg"> <?= $message; ?> </p>
                     </div>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
         <div class="notif" id="notif"></div>
+        <div id="phpnotif"></div>
     <div class="ocontainer" id="onlineocontainer">
         <div class="bg-form">
             <img class="login-logo" src="../img/logo_signe.svg" alt="Logo d'Electra">

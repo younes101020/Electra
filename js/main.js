@@ -6,10 +6,18 @@
 
         const error = document.getElementById('notif');
         let toggleError = document.querySelector('.notif').classList;
+
+        // PHP notif
+
+        let phpnotifTl = gsap.timeline({});
+
+        phpnotifTl.to("#phpnotif", {autoAlpha: 1, y: 50});
+        phpnotifTl.to("#phpnotif", {autoAlpha: 0, y: 0, duration: 1}, "+=2");
+
+
         let notifTl = gsap.timeline({});
         gsap.set("#notif", {autoAlpha: 0})
-
-        let toggleNotif = document.querySelector('.notif');
+        
 
         const animationError = (toggles) => {
         
@@ -518,15 +526,15 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         } else if(errorAcclistname === 1) {
             e.preventDefault();
             error.innerHTML = "<div class='errormsg'>Un nom de liste doit comporter 4 caractères minimum.</div>"
-            animationError(toggleNotif);
+            animationError(toggleError);
         } else if(errorAcclistname === 2) {
             e.preventDefault();
             error.innerHTML = "<div class='errormsg'>Ce nom de liste est déjà utiliser.</div>"
-            animationError(toggleNotif);
+            animationError(toggleError);
         } else {
             e.preventDefault();
             error.innerHTML = "<div class='errormsg'>Veuillez entrer un nom de liste.</div>"
-            animationError(toggleNotif);
+            animationError(toggleError);
         }
     });
 
@@ -702,11 +710,11 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         submit[i].addEventListener('click', function(e) {
         e.preventDefault();
         if(/[A-Z]{1,}[0-9]*/gi.test(commentaire[i].value)) {
-            sentcommentWithoutRefreshing(commentaire[i], commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent, toggleNotif.classList);
+            sentcommentWithoutRefreshing(commentaire[i], commentBtn[i].parentElement.parentElement.previousElementSibling.firstChild.textContent, toggleError);
             e.preventDefault();
         } else {
             error.innerHTML = "<div class='errormsg'>Votre commentaire n'as pas été envoyé.</div>"
-            animationError(toggleNotif.classList);
+            animationError(toggleError);
             clearInput(commentaire[i]);
         } 
         })
@@ -782,7 +790,8 @@ if(filename == "loginController.php" || filename == "registerController.php") {
 
             } else {
               e.preventDefault();
-              error.innerHTML = "<div class='errormsg'>Veuillez remplir correctement les champs voulu.</div>";  
+              error.innerHTML = "<div class='errormsg'>Veuillez remplir correctement les champs voulu.</div>";
+              animationError(toggleError);
             } 
         });
 

@@ -6,6 +6,13 @@ let submitBtn = document.getElementById('submitt');
 // Initialisation des variables global qui permettront la vérification des erreurs au submit/ 1 = erreur 0 = aucune erreur
 let errorAccname;
 
+// PHP notif
+
+let phpnotifTl = gsap.timeline({});
+
+phpnotifTl.to("#phpnotif", {autoAlpha: 1, y: 50});
+phpnotifTl.to("#phpnotif", {autoAlpha: 0, y: 0, duration: 1}, "+=2");
+
 const checkexistName = () => {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
