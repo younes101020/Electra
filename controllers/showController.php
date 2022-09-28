@@ -6,6 +6,7 @@
     // Récupération des films
     $show_instance = App::getShow();
     $shows = $show_instance->showRetrieve();
+
     $averages = $show_instance->getAverage();
 
     $showid = 1;
