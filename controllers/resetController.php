@@ -1,5 +1,5 @@
 <?php
-    require 'inc/bootstrap.php';
+    require '../inc/bootstrap.php';
     if(isset($_GET['id']) && isset($_GET['token'])) {
         $auth = App::getAuth();
         $auth->id = $_GET['id'];

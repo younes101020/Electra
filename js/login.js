@@ -36,11 +36,3 @@ const checkexistName = () => {
     firstInput.onkeyup = () => {
         checkexistName();
     }
-
-submitBtn.addEventListener("click", (e) => {
-    if(errorAccname == 0) {
-
-    } else {
-        e.preventDefault();
-    }
-});

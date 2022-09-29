@@ -1,12 +1,12 @@
 <?php
     require '../inc/bootstrap.php';
-    if(!empty($_POST) && !empty($_POST['email'])) {
+    if(!empty($_POST['email'])) {
         $auth = App::getAuth();
         $session = Session::getInstance();
-        $this->email = $_POST['email'];
+        $auth->email = $_POST['email'];
         if($auth->resetPassword()){
             $session->setFlash('success', 'Les instructions du rappel de mot de passe vous ont été envoyées par emails');
-            App::redirect('login.php');
+            App::redirect('loginController.php');
         } else {
             $session->setFlash('error', 'Aucun compte ne correspond à cette adresse');
         }

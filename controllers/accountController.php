@@ -9,7 +9,6 @@
     // Et enfin mettre à jour son champs sql password avec son nouveau mot de passe
     $auth = App::getAuth();
     if(!empty($_POST['newPassword'])){
-        $auth->id = $auth->user()->id;
         $auth->password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
         $auth->updatePassword();
         Session::getInstance()->setFlash('success', "Votre mot de passe a bien été mis à jour");

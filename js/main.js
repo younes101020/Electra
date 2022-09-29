@@ -32,6 +32,7 @@
 
         let mobileNavbar = document.querySelector('.toggle_menu');
         let togglemenu = document.querySelectorAll("a")[5].classList;
+        
 
         let mobileTl = gsap.timeline({});
 
@@ -796,16 +797,16 @@ if(filename == "loginController.php" || filename == "registerController.php") {
         });
 
 } else {
-    gsap.set(".litem", {x:900});
+        gsap.set(".litem", {x:900});
         gsap.set(".logo", {autoAlpha: 0});
 
-        let tl = gsap.timeline({duration:1});
+        let landingtl = gsap.timeline({duration:1});
         
         
 
-        tl.to(".spidermanbox", {x: -900});
-        tl.to(".womenbox", {x: -900});
-        tl.to(".communitybox", {x: -900});
+        landingtl.to(".spidermanbox", {x: -900});
+        landingtl.to(".womenbox", {x: -900});
+        landingtl.to(".communitybox", {x: -900});
         
-        tl.to(".logo", {autoAlpha: 1});
+        landingtl.to(".logo", {autoAlpha: 1});
 }

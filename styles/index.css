@@ -76,21 +76,21 @@ input[type=text], input[type=email] {
 }
 #notif .errormsg, #phpnotif .errormsg {
   font-size: 1.2rem;
-  background-color: rgb(255, 0, 0);
+  background-color: #EF5B5B;
   border-radius: 100vw;
   padding: 2rem;
   z-index: 2;
-  border-right: 0.4rem solid rgb(156, 12, 12);
-  border-bottom: 0.4rem solid rgb(156, 12, 12);
+  border-right: 0.4rem solid #C1292E;
+  border-bottom: 0.4rem solid #C1292E;
 }
 #notif .successmsg, #phpnotif .successmsg {
   font-size: 1.2rem;
-  background-color: rgb(0, 255, 30);
+  background-color: #6FEDB7;
   border-radius: 100vw;
   padding: 2rem;
   z-index: 2;
-  border-right: 0.4rem solid rgb(14, 158, 21);
-  border-bottom: 0.4rem solid rgb(14, 158, 21);
+  border-right: 0.4rem solid #2DD881;
+  border-bottom: 0.4rem solid #2DD881;
 }
 
 .hcontainer {

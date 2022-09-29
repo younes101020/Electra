@@ -34,7 +34,7 @@
                         <a href="../controllers/registerController.php" class="btn-sub btn-return-log">inscris-toi</a>
                     </div>
                     <div class="forgotpwd">
-                        <a href="forgetController.php" class="forgottxt">mot de passe oublié?</a>
+                        <a href="forgetpassController.php" class="forgottxt">mot de passe oublié?</a>
                     </div>
                     <div class="check">
                         <input class="btn-sub register-btn" type="submit" id="submitt" name="submit" value="connexion">
@@ -43,6 +43,7 @@
             </div>
         </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
     <script src="../js/login.js"></script>
 </body>
 </html>

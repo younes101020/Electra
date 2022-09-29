@@ -3,6 +3,20 @@
     <?php require_once '../inc/header_account.php'; ?>
 
     <main id="vertical_display">
+                <!-- Afficher chaque message flash (le status de l'utilisateur) si il y en a -->
+                <?php if(Session::getInstance()->hasFlashes()): ?>
+                    <?php foreach(Session::getInstance()->getFlashes() as $key => $message): ?>
+                        <?php if($key == 'error'): ?>
+                            <div id="phpnotif">
+                                <p class="errormsg"> <?= $message; ?> </p>
+                            </div>
+                        <?php else: ?>
+                            <div id="phpnotif">
+                                <p class="successmsg"> <?= $message; ?> </p>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
         <div class="notif togglenotif" id="notif"></div>
         <div id="input_container">
             <input type="text" id="search_bar" name="search">

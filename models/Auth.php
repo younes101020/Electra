@@ -300,7 +300,7 @@ class auth extends Database
             $resetExecute->bindValue(':reset_token', $this->reset_token, PDO::PARAM_STR);
             $resetExecute->bindValue(':id', $this->id, PDO::PARAM_INT);
             $resetExecute->execute();
-            mail($this->email, 'Réinitialisation de votre mot de passe', "Afin de réinitialiser votre mot de passe Electra merci de cliquer sur ce lien\n\nhttp://localhost/reset.php?id={$this->id}&token={$this->reset_token}", 'From: youneslow60@gmail.com');
+            mail($this->email, 'Réinitialisation de votre mot de passe', "Afin de réinitialiser votre mot de passe Electra merci de cliquer sur ce lien\n\nhttp://localhost/controllers/resetController.php?id={$this->id}&token={$this->reset_token}", 'From: youneslow60@gmail.com');
         }
 
         public function checkResetToken($pass){
@@ -311,7 +311,7 @@ class auth extends Database
             $queryExecute->bindValue(':id', $this->id, PDO::PARAM_INT);
             $queryExecute->bindValue(':reset_token', $this->reset_token, PDO::PARAM_STR);
             $queryExecute->execute();
-            $user = $queryExecute->fetch();
+            $user = $queryExecute->fetch(PDO::FETCH_OBJ);
             // Si le reset token est valide
             if($user){
                 $this->password = $this->hashPassword($pass);
@@ -324,10 +324,10 @@ class auth extends Database
 
                 $this->connect($user);
                 Session::getInstance()->setFlash('success', "Votre mot de passe a bien été modifié");
-                App::redirect('account.php');
+                App::redirect('accountController.php');
             } else {
                 Session::getInstance()->setFlash('error', "Ce token n'est pas valide");
-                App::redirect('login.php');
+                App::redirect('loginController.php');
             }
         }
 
@@ -336,7 +336,7 @@ class auth extends Database
             $sqlReset = 'UPDATE '. DB_PREFIX .'users SET password = :password WHERE id = :id';
             $resetExecute = $this->db->prepare($sqlReset);
             $resetExecute->bindValue(':password', $this->password, PDO::PARAM_STR);
-            $resetExecute->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $resetExecute->bindValue(':id', $this->session->read('auth')->id, PDO::PARAM_INT);
             $resetExecute->execute();
         }
 

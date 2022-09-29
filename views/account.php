@@ -1,19 +1,6 @@
 <body class="forced_no_overflow">
     
-    <!-- Afficher chaque message flash (le status de l'utilisateur) si il y en a -->
-    <?php if(Session::getInstance()->hasFlashes()): ?>
-            <?php foreach(Session::getInstance()->getFlashes() as $key => $message): ?>
-                <?php if($key == 'error'): ?>
-                    <div id="phpnotif">
-                        <p class="errormsg"> <?= $message; ?> </p>
-                    </div>
-                <?php else: ?>
-                    <div id="phpnotif">
-                        <p class="successmsg"> <?= $message; ?> </p>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        <?php endif; ?>
+    
         <div class="notif" id="notif"></div>
         <div id="phpnotif"></div>
     <div class="ocontainer" id="onlineocontainer">
